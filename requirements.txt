@@ -1,0 +1,3 @@
+selene >= 2.0.0b12
+pytest
+pip >= 22.2.2
