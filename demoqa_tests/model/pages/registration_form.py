@@ -4,8 +4,11 @@ from selene import have, command
 from selene.support.shared import browser
 
 from demoqa_tests.model.controls import dropdown
-from demoqa_tests.model.controls.dropdown import state, city
 from tests.test_data.users import Subject, Hobby
+
+
+state_selector = browser.element('#state')
+city_selector = browser.element('#city')
 
 
 def add_subjects(values: Tuple[Subject]):
@@ -29,8 +32,12 @@ def given_opened():
 
 
 def set_state(value: str):
-    dropdown.select(state, value)
+    dropdown.select(state_selector, value)
 
 
 def set_city(value: str):
-    dropdown.select(city, value)
+    dropdown.select(city_selector, value)
+
+
+def scroll_to_bottom():
+    state_selector.perform(command.js.scroll_into_view)

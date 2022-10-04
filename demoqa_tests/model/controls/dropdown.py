@@ -1,9 +1,5 @@
-# radio buttons, dropdown lists and so on
-from selene import have, command
+from selene import have
 from selene.support.shared import browser
-
-state = browser.element('#state')
-city = browser.element('#city')
 
 
 def select(element, option):

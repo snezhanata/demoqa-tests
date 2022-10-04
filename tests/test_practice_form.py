@@ -1,8 +1,7 @@
 from selene import have, command, be
 from selene.support.shared import browser
 
-from demoqa_tests.model.controls import dropdown
-from demoqa_tests.model.controls.dropdown import state, city
+import demoqa_tests.model.pages.registration_form
 from demoqa_tests.model.pages import registration_form
 from demoqa_tests.utils import path, table
 
@@ -34,7 +33,7 @@ def test_submit_student_registration_form():
     registration_form.add_hobbies(user.hobbies)
     browser.element('#uploadPicture').send_keys(path.to_resource(user.picture_file))
     browser.element('#currentAddress').type(user.current_address)
-    registration_form.state.perform(command.js.scroll_into_view)
+    registration_form.scroll_to_bottom()
     registration_form.set_state(user.state)
     registration_form.set_city(user.city)
     browser.element('#submit').perform(command.js.click)
