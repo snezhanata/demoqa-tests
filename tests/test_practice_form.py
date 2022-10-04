@@ -8,6 +8,7 @@ from demoqa_tests.model.pages import registartion_form
 from tests.test_data.users import user
 from demoqa_tests.utils import path, table
 
+
 def test_submit_student_registration_form():
 
     # GIVEN

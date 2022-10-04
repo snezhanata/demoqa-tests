@@ -9,4 +9,4 @@ def should_have_view(*data):
     rows = dialog.all('tbody tr')
     rows.all('td').should(
         have.exact_texts(*common.flatten(data))
-    )  # вторая * распаковывает изнутри и передает значения
+    )
