@@ -1,13 +1,14 @@
 from selene import have, command, be
 from selene.support.shared import browser
 
-import demoqa_tests.model.pages.registartion_form
-import tests.conftest
 from demoqa_tests.model import controls
 from demoqa_tests.model.pages import registartion_form
 from tests.test_data.users import user
 from demoqa_tests.utils import path, table
+from demoqa_tests.model import pages as app
 
+app.registartion_form.add_subjects()
+app.controls.dropdown.select()
 
 def test_submit_student_registration_form():
 
