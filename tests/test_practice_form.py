@@ -12,7 +12,7 @@ from demoqa_tests.utils import path, table
 def test_submit_student_registration_form():
 
     # GIVEN
-    registartion_form.given_opened_practice_form()
+    registartion_form.given_opened()
 
     # WHEN
     browser.should(have.title('ToolsQA'))
@@ -30,8 +30,8 @@ def test_submit_student_registration_form():
         f'.react-datepicker__day--0{user.birth_day}'
         f':not(.react-datepicker__day--outside-month)'
     ).click()
-    registartion_form.subject_values(user.subjects)
-    registartion_form.hobby_values(user.hobbies)
+    registartion_form.add_subjects(user.subjects)
+    registartion_form.add_hobbies(user.hobbies)
     browser.element('#uploadPicture').send_keys(path.to_resource(user.picture_file))
     browser.element('#currentAddress').type(user.current_address)
     state = browser.element('#state')
