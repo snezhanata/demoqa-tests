@@ -1,19 +1,18 @@
 from selene import have, command, be
 from selene.support.shared import browser
 
-from demoqa_tests.model import controls
-from demoqa_tests.model.pages import registartion_form
-from tests.test_data.users import user
+from demoqa_tests.model.controls import dropdown
+from demoqa_tests.model.controls.dropdown import state, city
+from demoqa_tests.model.pages import registration_form
 from demoqa_tests.utils import path, table
-from demoqa_tests.model import pages as app
 
-app.registartion_form.add_subjects()
-app.controls.dropdown.select()
+from tests.test_data.users import user
+
 
 def test_submit_student_registration_form():
 
     # GIVEN
-    registartion_form.given_opened()
+    registration_form.given_opened()
 
     # WHEN
     browser.should(have.title('ToolsQA'))
@@ -31,15 +30,13 @@ def test_submit_student_registration_form():
         f'.react-datepicker__day--0{user.birth_day}'
         f':not(.react-datepicker__day--outside-month)'
     ).click()
-    registartion_form.add_subjects(user.subjects)
-    registartion_form.add_hobbies(user.hobbies)
+    registration_form.add_subjects(user.subjects)
+    registration_form.add_hobbies(user.hobbies)
     browser.element('#uploadPicture').send_keys(path.to_resource(user.picture_file))
     browser.element('#currentAddress').type(user.current_address)
-    state = browser.element('#state')
-    state.perform(command.js.scroll_into_view)
-    controls.dropdown.select(state, user.state)
-    city = browser.element('#city')
-    controls.dropdown.select(city, user.city)
+    registration_form.state.perform(command.js.scroll_into_view)
+    registration_form.set_state(user.state)
+    registration_form.set_city(user.city)
     browser.element('#submit').perform(command.js.click)
 
     # THEN

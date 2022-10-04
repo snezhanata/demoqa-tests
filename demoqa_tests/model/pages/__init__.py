@@ -1,2 +1,2 @@
-from . import registartion_form
+from . import registration_form
 from .. import controls

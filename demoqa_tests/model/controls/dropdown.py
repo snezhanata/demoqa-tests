@@ -2,6 +2,9 @@
 from selene import have, command
 from selene.support.shared import browser
 
+state = browser.element('#state')
+city = browser.element('#city')
+
 
 def select(element, option):
     element.click()
