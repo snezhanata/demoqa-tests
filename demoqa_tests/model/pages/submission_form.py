@@ -4,7 +4,7 @@ from selene.support.shared import browser
 from demoqa_tests.utils import common
 
 
-def should_have_view(*data):
+def should_have_table(*data):
     dialog = browser.element('.modal-content')
     rows = dialog.all('tbody tr')
     rows.all('td').should(

@@ -41,3 +41,5 @@ def set_city(value: str):
 
 def scroll_to_bottom():
     state_selector.perform(command.js.scroll_into_view)
+
+

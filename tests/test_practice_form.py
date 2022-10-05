@@ -1,9 +1,9 @@
 from selene import have, command, be
 from selene.support.shared import browser
 
-import demoqa_tests.model.pages.registration_form
+from demoqa_tests.model.pages import submission_form
 from demoqa_tests.model.pages import registration_form
-from demoqa_tests.utils import path, table
+from demoqa_tests.utils import path
 
 from tests.test_data.users import user
 
@@ -40,7 +40,7 @@ def test_submit_student_registration_form():
 
     # THEN
     browser.element('#example-modal-sizes-title-lg').should(be.visible)
-    table.should_have_view(
+    submission_form.should_have_table(
         ('Student Name', f'{user.name} {user.last_name}'),
         ('Student Email', user.email),
         ('Gender', user.gender.value),
