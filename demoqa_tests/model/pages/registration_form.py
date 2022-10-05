@@ -17,17 +17,17 @@ def select_gender(value:str):
     ).first.click()
 
 
-def set_contact_info(email: str, mobile: int):
+def fill_contact_info(email: str, mobile: int):
     browser.element('#userEmail').type(email)
     browser.element('#userNumber').type(mobile)
 
 
-def set_full_name(first_name: str, last_name: str):
+def fill_full_name(first_name: str, last_name: str):
     browser.element('#firstName').type(first_name)
     browser.element('#lastName').type(last_name)
 
 
-def set_date(value: str):
+def fill_date(value: str):
     browser.element('#dateOfBirthInput').perform(command.js.set_value(value))
 
 
@@ -40,9 +40,11 @@ def select_date(day, month: str, year):
         f':not(.react-datepicker__day--outside-month)'
     ).click()
 
+
 def add_subjects_by_option(values: Tuple[Subject]):
     for subject in values:
         browser.element('#subjectsInput').type(subject.value).press_enter()
+
 
 def add_subjects_by_autocomplete(selector: str, /, *, from_: str, to: str = None):
     browser.element(selector).type(from_)
@@ -71,12 +73,20 @@ def given_opened():
         ads.perform(command.js.remove)
 
 
-def set_state(value: str):
+def fill_address(value: str):
+    browser.element('#currentAddress').type(value)
+
+
+def fill_state(value: str):
     dropdown.select(state_selector, value)
 
 
-def set_city(value: str):
+def fill_city(value: str):
     dropdown.select(city_selector, value)
+
+
+def submit_form():
+    browser.element('#submit').perform(command.js.click)
 
 
 def upload_file(file_name):

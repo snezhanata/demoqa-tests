@@ -12,31 +12,28 @@ def test_submit_student_registration_form():
 
     # GIVEN
     registration_form.given_opened()
-
+    # THEN
+    browser.should(have.title('ToolsQA'))  # т.к. assertions не должны быть внутри Page Objects, поэтому не стала выносить
     # WHEN
-    browser.should(have.title('ToolsQA')) # т.к. assertions не должны быть внутри Page Objects не стала это выносить
-    registration_form.set_full_name(user.first_name, user.last_name)
-    registration_form.select_date(user.birth_day, user.birth_month, user.birth_year)
+    registration_form.fill_full_name(user.first_name, user.last_name)
+    registration_form.select_date(user.birth_day, user.birth_month, user.birth_year) # вариант с выбором даты в календаре
+    # registration_form.fill_date('30 Aug 2000') # вариант с простановкой даты
     registration_form.select_gender(user.gender.value)
+    registration_form.fill_contact_info(user.email, user.mobile_number)
 
-    # registration_form.set_contact_info(user.email, user.mobile_number)
-    # Вопрос 1: Не смогла добиться чтобы заработал второй вариант именно простановки, а не выбора даты.
-    # Что делаю не так?:
-    registration_form.set_date('30 Aug 2000')
 
     registration_form.add_subjects_by_option(user.subjects)
-    # Вопрос 2: Подскажите, как здесь можно избежать повтора кода?
+    # Вопрос: Подскажите, как здесь можно избежать повтора кода?
     # registration_form.add_subjects_by_autocomplete('#subjectsInput', from_='Hi', to='History')
     # registration_form.add_subjects_by_autocomplete('#subjectsInput', from_='Mat', to='Maths')
 
     registration_form.add_hobbies(user.hobbies)
     registration_form.upload_file(user.picture_file)
-
-    browser.element('#currentAddress').type(user.current_address)
+    registration_form.fill_address(user.current_address)
     registration_form.scroll_to_bottom()
-    registration_form.set_state(user.state)
-    registration_form.set_city(user.city)
-    browser.element('#submit').perform(command.js.click)
+    registration_form.fill_state(user.state)
+    registration_form.fill_city(user.city)
+    registration_form.submit_form()
 
     # THEN
     browser.element('#example-modal-sizes-title-lg').should(be.visible)
