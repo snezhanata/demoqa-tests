@@ -14,21 +14,24 @@ def test_submit_student_registration_form():
     registration_form.given_opened()
 
     # WHEN
-    browser.should(have.title('ToolsQA')) # не стала выносить в Page Objects, т.к. assertions не должны быть внутри Page Objects
-
+    browser.should(have.title('ToolsQA')) # т.к. assertions не должны быть внутри Page Objects не стала это выносить
     registration_form.set_full_name(user.first_name, user.last_name)
     registration_form.select_date(user.birth_day, user.birth_month, user.birth_year)
     registration_form.select_gender(user.gender.value)
-    registration_form.set_contact_info(user.email, user.mobile_number)
-    # Вопрос: Не смогла добиться чтобы заработал второй вариант. Что делаю не так?:
-    # registration_form.set_date('30 Aug 2000')
+
+    # registration_form.set_contact_info(user.email, user.mobile_number)
+    # Вопрос 1: Не смогла добиться чтобы заработал второй вариант именно простановки, а не выбора даты.
+    # Что делаю не так?:
+    registration_form.set_date('30 Aug 2000')
 
     registration_form.add_subjects_by_option(user.subjects)
+    # Вопрос 2: Подскажите, как здесь можно избежать повтора кода?
     # registration_form.add_subjects_by_autocomplete('#subjectsInput', from_='Hi', to='History')
     # registration_form.add_subjects_by_autocomplete('#subjectsInput', from_='Mat', to='Maths')
 
     registration_form.add_hobbies(user.hobbies)
-    browser.element('#uploadPicture').send_keys(path.to_resource(user.picture_file))
+    registration_form.upload_file(user.picture_file)
+
     browser.element('#currentAddress').type(user.current_address)
     registration_form.scroll_to_bottom()
     registration_form.set_state(user.state)

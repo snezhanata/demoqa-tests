@@ -4,10 +4,12 @@ from selene import have, command
 from selene.support.shared import browser
 
 from demoqa_tests.model.controls import dropdown
+from demoqa_tests.utils import path
 from tests.test_data.users import Subject, Hobby, user
 
 state_selector = browser.element('#state')
 city_selector = browser.element('#city')
+
 
 def select_gender(value:str):
     browser.all('[for^=gender-radio]').by(
@@ -18,6 +20,7 @@ def select_gender(value:str):
 def set_contact_info(email: str, mobile: int):
     browser.element('#userEmail').type(email)
     browser.element('#userNumber').type(mobile)
+
 
 def set_full_name(first_name: str, last_name: str):
     browser.element('#firstName').type(first_name)
@@ -40,7 +43,6 @@ def select_date(day, month: str, year):
 def add_subjects_by_option(values: Tuple[Subject]):
     for subject in values:
         browser.element('#subjectsInput').type(subject.value).press_enter()
-
 
 def add_subjects_by_autocomplete(selector: str, /, *, from_: str, to: str = None):
     browser.element(selector).type(from_)
@@ -75,6 +77,11 @@ def set_state(value: str):
 
 def set_city(value: str):
     dropdown.select(city_selector, value)
+
+
+def upload_file(file_name):
+    browser.element('#uploadPicture').send_keys(path.to_resource(user.picture_file))
+    browser.element('#currentAddress').type(user.current_address)
 
 
 def scroll_to_bottom():
