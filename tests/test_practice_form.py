@@ -36,7 +36,7 @@ def test_submit_student_registration_form():
     registration_form.submit_form()
 
     # THEN
-    browser.element('#example-modal-sizes-title-lg').should(be.visible)
+    browser.element('#example-modal-sizes-title-lg').should(be.visible)  # т.к. assertions не должны быть внутри Page Objects, поэтому не стала выносить
     submission_form.should_have_table(
         ('Student Name', f'{user.first_name} {user.last_name}'),
         ('Student Email', user.email),
