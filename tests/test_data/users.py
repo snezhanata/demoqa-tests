@@ -35,7 +35,7 @@ Gender = Literal['Male', 'Female', 'Other']
 
 @dataclass
 class User:
-    name: str
+    first_name: str
     gender: Gender
     last_name: str = 'Cat'
     email: str = sample_email()
@@ -57,7 +57,7 @@ class User:
     city: str = 'Agra'
 
 
-user = User(name='Nyan', gender=Gender.Female)
+user = User(first_name='Nyan', gender=Gender.Female)
 '''
 OR (for Literal case)
 cat = User(name='Nyan', gender='Female')
