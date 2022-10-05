@@ -14,22 +14,19 @@ def test_submit_student_registration_form():
     registration_form.given_opened()
 
     # WHEN
-    browser.should(have.title('ToolsQA'))
-    browser.element('#firstName').type(user.name)
-    browser.element('#lastName').type(user.last_name)
-    browser.element('#userEmail').type(user.email)
-    browser.all('[for^=gender-radio]').by(
-        have.exact_text(user.gender.value)
-    ).first.click()
-    browser.element('#userNumber').type(user.mobile_number)
-    browser.element('#dateOfBirthInput').click()
-    browser.element('.react-datepicker__month-select').send_keys(user.birth_month)
-    browser.element('.react-datepicker__year-select').send_keys(user.birth_year)
-    browser.element(
-        f'.react-datepicker__day--0{user.birth_day}'
-        f':not(.react-datepicker__day--outside-month)'
-    ).click()
-    registration_form.add_subjects(user.subjects)
+    browser.should(have.title('ToolsQA')) # не стала выносить в Page Objects, т.к. assertions не должны быть внутри Page Objects
+
+    registration_form.set_full_name(user.first_name, user.last_name)
+    registration_form.select_date(user.birth_day, user.birth_month, user.birth_year)
+    registration_form.select_gender(user.gender.value)
+    registration_form.set_contact_info(user.email, user.mobile_number)
+    # Вопрос: Не смогла добиться чтобы заработал второй вариант. Что делаю не так?:
+    # registration_form.set_date('30 Aug 2000')
+
+    registration_form.add_subjects_by_option(user.subjects)
+    # registration_form.add_subjects_by_autocomplete('#subjectsInput', from_='Hi', to='History')
+    # registration_form.add_subjects_by_autocomplete('#subjectsInput', from_='Mat', to='Maths')
+
     registration_form.add_hobbies(user.hobbies)
     browser.element('#uploadPicture').send_keys(path.to_resource(user.picture_file))
     browser.element('#currentAddress').type(user.current_address)
@@ -41,7 +38,7 @@ def test_submit_student_registration_form():
     # THEN
     browser.element('#example-modal-sizes-title-lg').should(be.visible)
     submission_form.should_have_table(
-        ('Student Name', f'{user.name} {user.last_name}'),
+        ('Student Name', f'{user.first_name} {user.last_name}'),
         ('Student Email', user.email),
         ('Gender', user.gender.value),
         ('Mobile', user.mobile_number),
