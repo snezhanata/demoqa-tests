@@ -91,7 +91,6 @@ def submit_form():
 
 def upload_file(file_name):
     browser.element('#uploadPicture').send_keys(path.to_resource(user.picture_file))
-    browser.element('#currentAddress').type(user.current_address)
 
 
 def scroll_to_bottom():
