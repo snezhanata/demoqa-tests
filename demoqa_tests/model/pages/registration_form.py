@@ -3,6 +3,7 @@ from typing import Tuple
 from selene import have, command
 from selene.support.shared import browser
 
+from demoqa_tests import utils
 from demoqa_tests.model.controls import dropdown
 from demoqa_tests.utils import path
 from tests.test_data.users import Subject, Hobby, user
@@ -78,6 +79,7 @@ def set_address(value: str):
 
 
 def select_state(value: str):
+    utils.browser.scroll_to_view()
     dropdown.select(state_selector, value)
 
 
@@ -91,9 +93,5 @@ def submit():
 
 def upload_file(file_name):
     browser.element('#uploadPicture').send_keys(path.to_resource(user.picture_file))
-
-
-def scroll_to_bottom():
-    state_selector.perform(command.js.scroll_into_view)
 
 
