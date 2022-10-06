@@ -22,12 +22,12 @@ def fill_contact_info(email: str, mobile: int):
     browser.element('#userNumber').type(mobile)
 
 
-def fill_full_name(first_name: str, last_name: str):
+def set_name(first_name: str, last_name: str):
     browser.element('#firstName').type(first_name)
     browser.element('#lastName').type(last_name)
 
 
-def fill_date(value: str):
+def set_date(value: str):
     browser.element('#dateOfBirthInput').perform(command.js.set_value(value))
 
 
@@ -73,15 +73,15 @@ def given_opened():
         ads.perform(command.js.remove)
 
 
-def fill_address(value: str):
+def set_address(value: str):
     browser.element('#currentAddress').type(value)
 
 
-def fill_state(value: str):
+def select_state(value: str):
     dropdown.select(state_selector, value)
 
 
-def fill_city(value: str):
+def select_city(value: str):
     dropdown.select(city_selector, value)
 
 
