@@ -25,12 +25,6 @@ def set_date_by_js_2(value: str):
     browser.element('#dateOfBirthInput').perform(command.js.set_value(value))
 
 
-def set_date_by_js_3(value: datetime.date):
-    browser.element('#dateOfBirthInput').perform(
-        command.js.set_value(value.strftime(config.datetime_format))
-    )
-
-
 def select_date(day, month: str, year):
     browser.element('#dateOfBirthInput').click()
     browser.element('.react-datepicker__month-select').send_keys(month)
