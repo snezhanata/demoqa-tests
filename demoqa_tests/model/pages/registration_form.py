@@ -1,8 +1,10 @@
 import datetime
+import sys
 from typing import Tuple
 
 from selene import have, command
 from selene.support.shared import browser
+from selenium.webdriver import Keys
 
 from demoqa_tests import utils, config
 from demoqa_tests.model.controls import dropdown
@@ -11,6 +13,7 @@ from tests.test_data.users import Subject, Hobby, user
 
 state_selector = browser.element('#state')
 city_selector = browser.element('#city')
+key = Keys.COMMAND if sys.platform == 'darwin' else Keys.CONTROL
 
 
 def select_gender(value: str):
@@ -33,8 +36,18 @@ def set_name(first_name: str, last_name: str):
 #     )
 
 
+# def set_date(value: str):
+#     browser.element('#dateOfBirthInput').with_(set_value_by_js=True).set_value(value)
+
+
+# def set_date(value: str):
+#     browser.element('#dateOfBirthInput').perform(command.js.set_value(value))
+
+
 def set_date(value: str):
-    browser.element('#dateOfBirthInput').perform(command.js.set_value(value))
+    browser.element('#dateOfBirthInput').send_keys(key, 'a').type(
+        '30 Aug 2000'
+    ).press_enter()
 
 
 def select_date(day, month: str, year):
