@@ -1,4 +1,3 @@
-import datetime
 import sys
 from typing import Tuple
 
@@ -6,8 +5,8 @@ from selene import have, command
 from selene.support.shared import browser
 from selenium.webdriver import Keys
 
-from demoqa_tests import utils, config
-from demoqa_tests.model.controls import dropdown
+from demoqa_tests import utils
+from demoqa_tests.model.controls import dropdown, datepicker
 from demoqa_tests.utils import path
 from tests.test_data.users import Subject, Hobby, user
 
@@ -30,33 +29,8 @@ def set_name(first_name: str, last_name: str):
     browser.element('#lastName').type(last_name)
 
 
-# def set_date(value: datetime.date):
-#     browser.element('#dateOfBirthInput').perform(
-#         command.js.set_value(value.strftime(config.datetime_format))
-#     )
-
-
-# def set_date(value: str):
-#     browser.element('#dateOfBirthInput').with_(set_value_by_js=True).set_value(value)
-
-
-# def set_date(value: str):
-#     browser.element('#dateOfBirthInput').perform(command.js.set_value(value))
-
-
 def set_date(value: str):
-    browser.element('#dateOfBirthInput').send_keys(key, 'a').type(
-        '30 Aug 2000'
-    ).press_enter()
-
-
-def select_date(day, month: str, year):
-    browser.element('#dateOfBirthInput').click()
-    browser.element('.react-datepicker__month-select').send_keys(month)
-    browser.element('.react-datepicker__year-select').send_keys(year)
-    browser.element(
-        f'.react-datepicker__day--0{day}' f':not(.react-datepicker__day--outside-month)'
-    ).click()
+    datepicker.set_date_by_key(value)
 
 
 def add_subjects_by_option(values: Tuple[Subject]):
