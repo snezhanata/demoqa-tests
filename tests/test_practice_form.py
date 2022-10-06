@@ -85,6 +85,13 @@ def test_submit_student_registration_form():
     OR
     # сэмулировать с помощью комбинации клавиш, но код не будет кроссплатформенным
     browser.element('#dateOfBirthInput').send_keys(Keys.CONTROL, 'a').type('01 Sep 2001').press_enter()
+    
+    заюзай этот код:
+        modifier_key = Keys.COMMAND if sys.platform == 'darwin' else Keys.CONTROL
+    element.send_keys(
+        modifier_key + 'a' + Keys.NULL,
+        user.format_input_date(date),
+    ).press_enter()
     '''
     for subject in user.subjects:
         browser.element('#subjectsInput').type(subject.value).press_enter()
