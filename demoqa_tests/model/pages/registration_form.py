@@ -80,6 +80,7 @@ def set_address(value: str):
 
 def select_state(value: str):
     utils.browser.scroll_to_view()
+    # utils.browser.scroll_one_page()
     dropdown.select(state_selector, value)
 
 
