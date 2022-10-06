@@ -63,10 +63,10 @@ def test_submit_student_registration_form():
     ).click()
     '''
     OR
-    browser.element('#dateOfBirthInput').perform(command.js.set_value('30 August,2000')).click()
+    browser.element('#dateOfBirthInput').perform(command.js.set_value('30 August,2000'))
 
     OR
-    browser.element('#dateOfBirthInput').with_(set_value_by_js=True).set_value('30 August,2000').click()
+    browser.element('#dateOfBirthInput').with_(set_value_by_js=True).set_value('30 August,2000')
 
     OR
     browser.element('.react-datepicker__month-select').element(f'[value="{user.birth_month}"]').click()
