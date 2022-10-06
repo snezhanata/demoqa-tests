@@ -11,8 +11,10 @@ from demoqa_tests import config
 key = Keys.COMMAND if sys.platform == 'darwin' else Keys.CONTROL
 
 
-def set_date_by_key(value: str):
-    browser.element('#dateOfBirthInput').send_keys(key, 'a').type(value).press_enter()
+def set_date_by_key(value: datetime.date):
+    browser.element('#dateOfBirthInput').send_keys(key, 'a').type(
+        value.strftime(config.datetime_format)
+    ).press_enter()
 
 
 def set_date_by_js_1(value: str):

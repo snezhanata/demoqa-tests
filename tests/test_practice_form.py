@@ -21,7 +21,7 @@ def test_submit_student_registration_form():
     registration_form.fill_contact_info(user.email, user.mobile_number)
     registration_form.select_gender(user.gender.value)
     # registration_form.select_date(user.birth_day, user.birth_month, user.birth_year)
-    registration_form.set_date('30 Aug 2000')
+    # registration_form.set_date(2000, 8, 30)
     registration_form.add_subjects_by_option(user.subjects)
     # registration_form.add_subjects_by_autocomplete('#subjectsInput', from_='Hi', to='History')
     # registration_form.add_subjects_by_autocomplete('#subjectsInput', from_='Mat', to='Maths')
