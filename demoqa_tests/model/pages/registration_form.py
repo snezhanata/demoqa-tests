@@ -14,9 +14,7 @@ city_selector = browser.element('#city')
 
 
 def select_gender(value: str):
-    browser.all('[for^=gender-radio]').by(
-        have.exact_text(value)
-    ).first.click()
+    browser.all('[for^=gender-radio]').by(have.exact_text(value)).first.click()
 
 
 def fill_contact_info(email: str, mobile: int):
@@ -29,8 +27,14 @@ def set_name(first_name: str, last_name: str):
     browser.element('#lastName').type(last_name)
 
 
-def set_date(value: datetime.date):
-    browser.element('#dateOfBirthInput').perform(command.js.set_value(value.strftime(config.datetime_format)))
+# def set_date(value: datetime.date):
+#     browser.element('#dateOfBirthInput').perform(
+#         command.js.set_value(value.strftime(config.datetime_format))
+#     )
+
+
+def set_date(value: str):
+    browser.element('#dateOfBirthInput').perform(command.js.set_value(value))
 
 
 def select_date(day, month: str, year):
@@ -38,8 +42,7 @@ def select_date(day, month: str, year):
     browser.element('.react-datepicker__month-select').send_keys(month)
     browser.element('.react-datepicker__year-select').send_keys(year)
     browser.element(
-        f'.react-datepicker__day--0{day}'
-        f':not(.react-datepicker__day--outside-month)'
+        f'.react-datepicker__day--0{day}' f':not(.react-datepicker__day--outside-month)'
     ).click()
 
 
@@ -62,7 +65,9 @@ def add_subjects_by_autocomplete(selector: str, /, *, from_: str, to: str = None
 
 def add_hobbies(values: Tuple[Hobby]):
     for hobby in values:
-        browser.all('[id^=hobbies]').by(have.value(hobby.value)).first.element('..').click()
+        browser.all('[id^=hobbies]').by(have.value(hobby.value)).first.element(
+            '..'
+        ).click()
 
 
 def given_opened():
@@ -95,5 +100,3 @@ def submit():
 
 def upload_file(file_name):
     browser.element('#uploadPicture').send_keys(path.to_resource(user.picture_file))
-
-
