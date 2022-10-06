@@ -28,6 +28,7 @@ def test_submit_student_registration_form():
     registration_form.add_hobbies(user.hobbies)
     registration_form.upload_file(user.picture_file)
     registration_form.set_address(user.current_address)
+
     registration_form.select_state(user.state)
     registration_form.select_city(user.city)
     registration_form.submit()
