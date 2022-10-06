@@ -19,7 +19,7 @@ def test_submit_student_registration_form():
     # WHEN
     registration_form.set_name(user.first_name, user.last_name)
     registration_form.fill_contact_info(user.email, user.mobile_number)
-    registration_form.select_gender("Female")
+    registration_form.select_gender(user.gender.value)
     # registration_form.select_date(user.birth_day, user.birth_month, user.birth_year)
     registration_form.set_date(datetime.date(2000, 8, 30))
     registration_form.add_subjects_by_option(user.subjects)
