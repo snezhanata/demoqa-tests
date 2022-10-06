@@ -1,9 +1,7 @@
-import sys
 from typing import Tuple
 
 from selene import have, command
 from selene.support.shared import browser
-from selenium.webdriver import Keys
 
 from demoqa_tests import utils
 from demoqa_tests.model.controls import dropdown, datepicker
@@ -12,7 +10,6 @@ from tests.test_data.users import Subject, Hobby, user
 
 state_selector = browser.element('#state')
 city_selector = browser.element('#city')
-key = Keys.COMMAND if sys.platform == 'darwin' else Keys.CONTROL
 
 
 def select_gender(value: str):

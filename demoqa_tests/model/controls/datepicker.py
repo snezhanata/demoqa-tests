@@ -1,10 +1,14 @@
 import datetime
+import sys
 
 from selene import command
 from selene.support.shared import browser
+from selenium.webdriver import Keys
 
 from demoqa_tests import config
-from demoqa_tests.model.pages.registration_form import key
+
+
+key = Keys.COMMAND if sys.platform == 'darwin' else Keys.CONTROL
 
 
 def set_date_by_key(value: str):
