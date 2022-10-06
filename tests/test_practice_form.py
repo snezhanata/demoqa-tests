@@ -161,6 +161,10 @@ def test_submit_student_registration_form():
     '''
     browser.element('#currentAddress').type(user.current_address)
     browser.element('#state').perform(command.js.scroll_into_view)
+    '''
+    OR
+    browser.execute_script('window.scrollTo(0, document.body.scrollHeight)')
+    '''
     browser.element('#state').click()
     browser.all('[id^=react-select][id*=-option-]').by(
         have.exact_text(user.state)
