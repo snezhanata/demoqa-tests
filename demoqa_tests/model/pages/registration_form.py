@@ -12,7 +12,7 @@ state_selector = browser.element('#state')
 city_selector = browser.element('#city')
 
 
-def select_gender(value:str):
+def select_gender(value: str):
     browser.all('[for^=gender-radio]').by(
         have.exact_text(value)
     ).first.click()
