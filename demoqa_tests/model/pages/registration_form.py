@@ -66,10 +66,10 @@ def add_hobbies(values: Tuple[Hobby]):
 def given_opened():
     browser.open('/automation-practice-form')
     ads = browser.all('[id^=google_ads_][id$=container__],[id$=Advertisement]')
-    ads.with_(timeout=10).should(have.size_greater_than_or_equal(3)).perform(
+    ads.with_(timeout=10).should(have.size_less_than_or_equal(3)).perform(
         command.js.remove
     )
-    if ads.with_(timeout=2).wait_until(have.size_greater_than_or_equal(3)):
+    if ads.with_(timeout=2).wait_until(have.size_less_than_or_equal(3)):
         ads.perform(command.js.remove)
 
 
@@ -85,7 +85,7 @@ def fill_city(value: str):
     dropdown.select(city_selector, value)
 
 
-def submit_form():
+def submit():
     browser.element('#submit').perform(command.js.click)
 
 

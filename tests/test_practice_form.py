@@ -33,7 +33,7 @@ def test_submit_student_registration_form():
     registration_form.scroll_to_bottom()
     registration_form.fill_state(user.state)
     registration_form.fill_city(user.city)
-    registration_form.submit_form()
+    registration_form.submit()
 
     # THEN
     browser.element('#example-modal-sizes-title-lg').should(be.visible)  # т.к. assertions не должны быть внутри Page Objects, поэтому не стала выносить
