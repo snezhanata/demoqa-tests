@@ -28,7 +28,11 @@ def set_name(first_name: str, last_name: str):
 
 
 def set_date(value: datetime.date):
-    datepicker.set_date_by_key(value)
+    datepicker.set_date_by_key(browser.element('#dateOfBirthInput'), value)
+
+
+def select_date(day: int, month: str, year: int):
+    datepicker.select_date(browser.element('#dateOfBirthInput'), day, month, year)
 
 
 def add_subjects_by_option(values: Tuple[Subject]):
