@@ -1,8 +1,8 @@
 from selene import have
 from selene.support.shared import browser
 
-from tests.test_data.users import user
+from tests.test_data.users import user, Gender
 
 
-def radio_button(value: str):
+def option(value: str):
     browser.all('[for^=gender-radio]').by(have.exact_text(value)).first.click()

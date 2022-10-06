@@ -7,14 +7,14 @@ from selene.support.shared import browser
 from demoqa_tests import utils
 from demoqa_tests.model.controls import dropdown, datepicker, radio_button
 from demoqa_tests.utils import path
-from tests.test_data.users import Subject, Hobby, user
+from tests.test_data.users import Subject, Hobby, user, Gender
 
 state_selector = browser.element('#state')
 city_selector = browser.element('#city')
 
 
-def select_gender(value: user.gender):
-    radio_button(value)
+def select_gender(value: str):
+    radio_button.option(value)
 
 
 def fill_contact_info(email: str, mobile: int):
