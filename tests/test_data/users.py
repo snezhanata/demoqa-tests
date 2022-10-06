@@ -43,9 +43,7 @@ class User:
     birth_day: str = '30'
     birth_month: str = 'August'
     birth_year: str = '2000'
-    '''
-    date_of_birth: str = '08 August,2000'
-    '''
+    # date_of_birth: str = '08 August,2000' # noqa
     subjects: Tuple[Subject] = (
         Subject.History,
         Subject.Maths,

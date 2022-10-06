@@ -1,9 +1,10 @@
+import datetime
 from typing import Tuple
 
 from selene import have, command
 from selene.support.shared import browser
 
-from demoqa_tests import utils
+from demoqa_tests import utils, config
 from demoqa_tests.model.controls import dropdown
 from demoqa_tests.utils import path
 from tests.test_data.users import Subject, Hobby, user
@@ -28,8 +29,8 @@ def set_name(first_name: str, last_name: str):
     browser.element('#lastName').type(last_name)
 
 
-def set_date(value: str):
-    browser.element('#dateOfBirthInput').perform(command.js.set_value(value))
+def set_date(value: datetime.date):
+    browser.element('#dateOfBirthInput').perform(command.js.set_value(value.strftime(config.datetime_format)))
 
 
 def select_date(day, month: str, year):
@@ -67,10 +68,10 @@ def add_hobbies(values: Tuple[Hobby]):
 def given_opened():
     browser.open('/automation-practice-form')
     ads = browser.all('[id^=google_ads_][id$=container__],[id$=Advertisement]')
-    ads.with_(timeout=10).should(have.size_less_than_or_equal(3)).perform(
+    ads.with_(timeout=10).should(have.size_greater_than_or_equal(4)).perform(
         command.js.remove
     )
-    if ads.with_(timeout=2).wait_until(have.size_less_than_or_equal(3)):
+    if ads.with_(timeout=2).wait_until(have.size_less_than_or_equal(4)):
         ads.perform(command.js.remove)
 
 
@@ -79,7 +80,7 @@ def set_address(value: str):
 
 
 def select_state(value: str):
-    utils.browser.scroll_to_view()
+    utils.browser.scroll_to_view(state_selector)
     # utils.browser.scroll_one_page()
     dropdown.select(state_selector, value)
 
