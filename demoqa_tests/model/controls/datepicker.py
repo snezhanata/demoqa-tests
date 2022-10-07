@@ -2,7 +2,7 @@ import datetime
 import sys
 
 import selene
-from selene.support.conditions import have
+from selene.support.shared import browser
 from selenium.webdriver import Keys
 
 from tests.test_data import users
@@ -34,13 +34,13 @@ def set_date_by_js_perform(element: selene.Element, value: str):
 
 def calendar(
     element: selene.Element,
-    element_month: selene.Element,
-    element_year: selene.Element,
-    element_day: selene.Element,
+    day: int,
     month: str,
     year: int,
 ):
     element.click()
-    element_month.send_keys(month)
-    element_year.send_keys(year)
-    element_day.click()
+    browser.element('.react-datepicker__month-select').send_keys(month)
+    browser.element('.react-datepicker__year-select').send_keys(year)
+    browser.element(
+        f'.react-datepicker__day--0{day}' f':not(.react-datepicker__day--outside-month)'
+    ).click()

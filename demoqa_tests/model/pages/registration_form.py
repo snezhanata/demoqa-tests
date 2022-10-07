@@ -39,17 +39,7 @@ def assert_set_date(value: datetime.date):
 
 
 def select_date(day: int, month: str, year: int):
-    datepicker.calendar(
-        birthday_selector,
-        browser.element('.react-datepicker__month-select'),
-        browser.element('.react-datepicker__year-select'),
-        browser.element(
-            f'.react-datepicker__day--0{day}'
-            f':not(.react-datepicker__day--outside-month)'
-        ),
-        month,
-        year,
-    )
+    datepicker.calendar(birthday_selector, day, month, year)
 
 
 def set_subject(values: Tuple[Subject]):
