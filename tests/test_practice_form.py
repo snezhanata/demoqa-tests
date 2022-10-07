@@ -11,7 +11,7 @@ from tests.test_data.users import user, Gender, Hobby
 def test_submit_student_registration_form():
 
     # GIVEN
-    registration_form.given_opened()
+    registration_form.open()
 
     # THEN
     browser.should(have.title('ToolsQA'))

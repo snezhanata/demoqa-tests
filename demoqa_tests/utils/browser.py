@@ -1,7 +1,7 @@
 from selene import command
 from selene.support.shared import browser
 
-from demoqa_tests.utils.selene import command_ext
+from demoqa_tests.utils.selene.extentions import command_ext
 
 
 def scroll_to_view(value):

@@ -6,6 +6,7 @@ from selene.support.shared import browser
 
 from demoqa_tests import utils
 from demoqa_tests.model.controls import dropdown, datepicker, radio_button, checkbox
+from demoqa_tests.model import google
 from demoqa_tests.utils import path
 from demoqa_tests.utils.selene.conditions import match
 from tests.test_data.users import Subject, Hobby, user, Gender
@@ -81,14 +82,9 @@ def select_hobby(values: Tuple[Hobby]):
 #     )
 
 
-def given_opened():
+def open():
     browser.open('/automation-practice-form')
-    ads = browser.all('[id^=google_ads_][id$=container__],[id$=Advertisement]')
-    ads.with_(timeout=10).should(have.size_greater_than_or_equal(4)).perform(
-        command.js.remove
-    )
-    if ads.with_(timeout=2).wait_until(have.size_less_than_or_equal(4)):
-        ads.perform(command.js.remove)
+    google.remove_ads(amount=4, timeout=3)
 
 
 def set_address(value: str):
