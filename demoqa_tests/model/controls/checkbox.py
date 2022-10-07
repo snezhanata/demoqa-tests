@@ -7,4 +7,4 @@ from tests.test_data.users import Hobby
 
 def option(element: selene.Element, values: Tuple[Hobby]):
     for hobby in values:
-        element.by(have.value(hobby.value)).first.element('..').click()
+        element.by(have.value(hobby.value)).first.element('..').click()  # noqa

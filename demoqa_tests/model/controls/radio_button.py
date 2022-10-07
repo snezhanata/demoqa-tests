@@ -6,4 +6,4 @@ from tests.test_data.users import user, Gender
 
 
 def option(element: selene.Element, value: str):
-    element.by(have.exact_text(value)).first.click()
+    element.by(have.exact_text(value)).first.click()  # noqa
