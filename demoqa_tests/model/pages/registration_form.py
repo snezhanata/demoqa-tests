@@ -16,6 +16,11 @@ city_selector = browser.element('#city')
 birthday_selector = browser.element('#dateOfBirthInput')
 
 
+def open():
+    browser.open('/automation-practice-form')
+    google.ads_remove(amount=4, timeout=3)
+
+
 def select_gender(value: str):
     radio_button.option(browser.all('[for^=gender-radio]'), value)
 
@@ -80,11 +85,6 @@ def select_hobby(values: Tuple[Hobby]):
 #         # checkbox.check_options(
 #         #     browser.all('[for^=hobbies-checkbox]'), *map(lambda option: option.value, options)
 #     )
-
-
-def open():
-    browser.open('/automation-practice-form')
-    google.remove_ads(amount=4, timeout=3)
 
 
 def set_address(value: str):

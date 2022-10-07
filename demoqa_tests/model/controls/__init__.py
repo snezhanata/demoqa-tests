@@ -1,1 +1,1 @@
-from . import dropdown, dialog, datepicker, radio_button
+from . import dropdown, modal, datepicker, radio_button
