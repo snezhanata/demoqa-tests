@@ -1,6 +1,9 @@
+import datetime
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Tuple, Literal
+
+from demoqa_tests import config
 
 # def sample_email_(domain='gmail'):
 #     return f'nyan.cat@{domain}.com'
@@ -60,3 +63,7 @@ user = User(first_name='Nyan', gender=Gender.Female)
 OR (for Literal case)
 cat = User(name='Nyan', gender='Female')
 '''
+
+
+def format_date(value: datetime.date):
+    return value.strftime(config.datetime_format)

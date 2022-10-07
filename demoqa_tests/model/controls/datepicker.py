@@ -7,13 +7,18 @@ from selene.support.shared import browser
 from selenium.webdriver import Keys
 
 from demoqa_tests import config
+from demoqa_tests.utils.selene.conditions import match
+from tests.test_data import users
 
 
 def typing(element: selene.Element, value: datetime.date):
     key = Keys.COMMAND if sys.platform == 'darwin' else Keys.CONTROL
-    element.send_keys(key, 'a').type(
-        value.strftime(config.datetime_format)
-    ).press_enter()
+    element.send_keys(key, 'a').type(users.format_date(value)).press_enter()
+
+
+# проверка по Мартину Фаулеру, мы создали свой метод "match.date" (match аналог have)
+def assert_value(element: selene.Element, value: datetime.date):
+    element.should(match.date(value))
 
 
 '''
