@@ -1,6 +1,6 @@
 from selene import have
 
-from demoqa_tests.model.controls import modal, table
+from demoqa_tests.model.components import modal
 from demoqa_tests.utils import common
 
 
