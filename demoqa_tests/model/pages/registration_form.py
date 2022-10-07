@@ -7,6 +7,7 @@ from selene.support.shared import browser
 from demoqa_tests import utils
 from demoqa_tests.model.controls import dropdown, datepicker, radio_button
 from demoqa_tests.utils import path
+from demoqa_tests.utils.selene.conditions import match
 from tests.test_data.users import Subject, Hobby, user, Gender
 
 state_selector = browser.element('#state')
@@ -32,6 +33,11 @@ def set_date(value: datetime.date):
     datepicker.typing(birthday_selector, value)
 
 
+def assert_set_date(value: datetime.date):
+    birthday_selector.should(match.date(value))  # проверка по Мартину Фаулеру
+    # datepicker.assert_value(birthday_selector, value) # проверка НЕ по Мартину Фаулеру
+
+
 def select_date(day: int, month: str, year: int):
     datepicker.calendar(
         birthday_selector,
@@ -46,7 +52,7 @@ def select_date(day: int, month: str, year: int):
     )
 
 
-def add_subjects_by_option(values: Tuple[Subject]):
+def add_subject(values: Tuple[Subject]):
     for subject in values:
         browser.element('#subjectsInput').type(subject.value).press_enter()
 
@@ -63,7 +69,7 @@ def add_subjects_by_autocomplete(selector: str, /, *, from_: str, to: str = None
         ).perform(command.js.click)
 
 
-def add_hobbies(values: Tuple[Hobby]):
+def add_hobby(values: Tuple[Hobby]):
     for hobby in values:
         browser.all('[id^=hobbies]').by(have.value(hobby.value)).first.element(
             '..'

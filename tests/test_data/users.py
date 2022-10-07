@@ -5,10 +5,6 @@ from typing import List, Tuple, Literal
 
 from demoqa_tests import config
 
-# def sample_email_(domain='gmail'):
-#     return f'nyan.cat@{domain}.com'
-# sample_email_()
-
 sample_email = lambda domain='gmail': f'nyan.cat@{domain}.com'
 
 

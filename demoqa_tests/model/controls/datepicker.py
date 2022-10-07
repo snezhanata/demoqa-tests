@@ -2,12 +2,9 @@ import datetime
 import sys
 
 import selene
-from selene import command
-from selene.support.shared import browser
+from selene.support.conditions import have
 from selenium.webdriver import Keys
 
-from demoqa_tests import config
-from demoqa_tests.utils.selene.conditions import match
 from tests.test_data import users
 
 
@@ -16,14 +13,17 @@ def typing(element: selene.Element, value: datetime.date):
     element.send_keys(key, 'a').type(users.format_date(value)).press_enter()
 
 
-# # проверка по Мартину Фаулеру, мы создали свой метод "match.date" (match аналог have)
+# Проверка по Мартину Фаулеру
 # def assert_value(element: selene.Element, value: datetime.date):
 #     element.should(match.date(value))
 
+# проверка НЕ по Мартину Фаулеру
+# def assert_value(element:selene.Element, date: datetime.date):
+#     element.should(have.value(users.format_date(date)))
 
 '''
 OR
-def set_date_by_js_with(element: selene.Element, value: str):
+def typing_by_js_with(element: selene.Element, value: str):
     element.with_(set_value_by_js=True).set_value(value)
 
 
