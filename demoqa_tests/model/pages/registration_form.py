@@ -5,7 +5,7 @@ from selene import have, command
 from selene.support.shared import browser
 
 from demoqa_tests import utils
-from demoqa_tests.model.controls import dropdown, datepicker, radio_button
+from demoqa_tests.model.controls import dropdown, datepicker, radio_button, checkbox
 from demoqa_tests.utils import path
 from demoqa_tests.utils.selene.conditions import match
 from tests.test_data.users import Subject, Hobby, user, Gender
@@ -16,10 +16,10 @@ birthday_selector = browser.element('#dateOfBirthInput')
 
 
 def select_gender(value: str):
-    radio_button.option(value)
+    radio_button.option(browser.all('[for^=gender-radio]'), value)
 
 
-def fill_contact_info(email: str, mobile: int):
+def set_contact_info(email: str, mobile: int):
     browser.element('#userEmail').type(email)
     browser.element('#userNumber').type(mobile)
 
@@ -52,12 +52,12 @@ def select_date(day: int, month: str, year: int):
     )
 
 
-def add_subject(values: Tuple[Subject]):
+def set_subject(values: Tuple[Subject]):
     for subject in values:
         browser.element('#subjectsInput').type(subject.value).press_enter()
 
 
-def add_subjects_by_autocomplete(selector: str, /, *, from_: str, to: str = None):
+def autocomplete_subject(selector: str, /, *, from_: str, to: str = None):
     browser.element(selector).type(from_)
     if to is not None:
         browser.all('.subjects-auto-complete__option').element_by(
@@ -69,11 +69,8 @@ def add_subjects_by_autocomplete(selector: str, /, *, from_: str, to: str = None
         ).perform(command.js.click)
 
 
-def add_hobby(values: Tuple[Hobby]):
-    for hobby in values:
-        browser.all('[id^=hobbies]').by(have.value(hobby.value)).first.element(
-            '..'
-        ).click()
+def select_hobby(values: Tuple[Hobby]):
+    checkbox.option(browser.all('[id^=hobbies]'), values)
 
 
 def given_opened():
