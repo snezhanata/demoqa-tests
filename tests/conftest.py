@@ -21,7 +21,6 @@ def browser_management():
     browser.close()
 
 
-
 # @pytest.fixture(autouse=True)
 # def change_test_dir_to_project_root(request, monkeypatch):
 #     monkeypatch.chdir(request.fspath.dirname)
