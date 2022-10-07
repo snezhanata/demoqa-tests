@@ -23,7 +23,7 @@ def select_gender(value: str):
 #     radio_button.set_option('gender', value.value)  # noqa
 
 
-def set_contact_info(email: str, mobile: int):
+def set_contacts(email: str, mobile: int):
     browser.element('#userEmail').type(email)
     browser.element('#userNumber').type(mobile)
 
@@ -74,7 +74,10 @@ def select_hobby(values: Tuple[Hobby]):
 
 # def fill_hobbies(*options: Hobby):
 #     checkbox.check_options(
-#         browser.all('[for^=hobbies-checkbox]'), *[option.value for option in options]
+#         browser.all('[for^=hobbies-checkbox]'),
+#         *[option.value for option in options]
+#         # checkbox.check_options(
+#         #     browser.all('[for^=hobbies-checkbox]'), *map(lambda option: option.value, options)
 #     )
 
 
@@ -92,12 +95,14 @@ def set_address(value: str):
     browser.element('#currentAddress').type(value)
 
 
+# допиши автокомплит
 def select_state(value: str):
     utils.browser.scroll_to_view(state_selector)
     # utils.browser.scroll_one_page()
     dropdown.select(state_selector, value)
 
 
+# допиши автокомплит
 def select_city(value: str):
     dropdown.select(city_selector, value)
 
@@ -106,5 +111,5 @@ def submit():
     browser.element('#submit').perform(command.js.click)
 
 
-def upload_file(file_name):
+def select_picture(file_name):
     browser.element('#uploadPicture').send_keys(path.to_resource(user.picture_file))
