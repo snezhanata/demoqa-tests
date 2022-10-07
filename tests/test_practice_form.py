@@ -20,6 +20,7 @@ def test_submit_student_registration_form():
     registration_form.set_name(user.first_name, user.last_name)
     registration_form.set_contact_info(user.email, user.mobile_number)
     registration_form.select_gender(user.gender.value)
+    # registration_form.fill_gender(Gender.Female)
     # registration_form.set_date(datetime.date(2000, 8, 30))
     # registration_form.assert_set_date(datetime.date(2000, 8, 30))
     registration_form.select_date(user.birth_day, user.birth_month, user.birth_year)
@@ -40,6 +41,7 @@ def test_submit_student_registration_form():
         ('Student Name', f'{user.first_name} {user.last_name}'),
         ('Student Email', user.email),
         ('Gender', user.gender.value),
+        # ('Gender', user.gender.name),
         ('Mobile', user.mobile_number),
         ('Date of Birth', f'{user.birth_day} {user.birth_month},{user.birth_year}'),
         ('Subjects', ', '.join([subject.value for subject in user.subjects])),

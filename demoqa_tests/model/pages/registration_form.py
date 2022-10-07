@@ -19,6 +19,10 @@ def select_gender(value: str):
     radio_button.option(browser.all('[for^=gender-radio]'), value)
 
 
+# def fill_gender(value: Gender):
+#     radio_button.set_option('gender', value.value)  # noqa
+
+
 def set_contact_info(email: str, mobile: int):
     browser.element('#userEmail').type(email)
     browser.element('#userNumber').type(mobile)

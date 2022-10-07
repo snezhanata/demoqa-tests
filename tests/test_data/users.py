@@ -32,6 +32,13 @@ class Gender(Enum):
     Other = 'Other'
 
 
+#
+# class Gender(Enum):
+#     Male = 1
+#     Female = 2
+#     Other = 3
+
+
 '''
 OR 
 Gender = Literal['Male', 'Female', 'Other']
@@ -53,7 +60,7 @@ class User:
         Subject.History,
         Subject.Maths,
     )
-    # hobbies: Tuple[Hobby] = (Hobby.Sports, Hobby.Music)
+    hobbies: Tuple[Hobby] = (Hobby.Sports, Hobby.Music)
     picture_file: str = 'pic.jpg'
     current_address: str = 'https://www.youtube.com/watch?v=QH2-TGUlwu4'
     state: str = 'Uttar Pradesh'
