@@ -51,6 +51,11 @@ def set_subject(values: Tuple[Subject]):
         browser.element('#subjectsInput').type(subject.value).press_enter()
 
 
+# def fill_subjects(*subjects: str):
+#     for item in subjects:
+#         browser.element('#subjectsInput').type(item).press_enter()
+
+
 def autocomplete_subject(selector: str, /, *, from_: str, to: str = None):
     browser.element(selector).type(from_)
     if to is not None:
