@@ -63,6 +63,12 @@ def select_hobby(values: Tuple[Hobby]):
     checkbox.option(browser.all('[id^=hobbies]'), values)
 
 
+# def fill_hobbies(*options: Hobby):
+#     checkbox.check_options(
+#         browser.all('[for^=hobbies-checkbox]'), *[option.value for option in options]
+#     )
+
+
 def given_opened():
     browser.open('/automation-practice-form')
     ads = browser.all('[id^=google_ads_][id$=container__],[id$=Advertisement]')

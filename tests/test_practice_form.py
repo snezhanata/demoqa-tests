@@ -5,7 +5,7 @@ from selene.support.shared import browser
 
 from demoqa_tests.model.pages import submission_form
 from demoqa_tests.model.pages import registration_form
-from tests.test_data.users import user, Gender
+from tests.test_data.users import user, Gender, Hobby
 
 
 def test_submit_student_registration_form():
@@ -27,6 +27,7 @@ def test_submit_student_registration_form():
     # registration_form.add_subjects_by_autocomplete('#subjectsInput', from_='Hi', to='History')
     # registration_form.add_subjects_by_autocomplete('#subjectsInput', from_='Mat', to='Maths')
     registration_form.select_hobby(user.hobbies)
+    # registration_form.fill_hobbies(Hobby.Music, Hobby.Reading)
     registration_form.upload_file(user.picture_file)
     registration_form.set_address(user.current_address)
     registration_form.select_state(user.state)

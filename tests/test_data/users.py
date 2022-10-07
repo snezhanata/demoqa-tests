@@ -20,6 +20,12 @@ class Hobby(Enum):
     Music = '3'
 
 
+# class Hobby(Enum):
+#     Music = 'Music'
+#     Reading = 'Reading'
+#     Sports = 'Sports'
+
+
 class Gender(Enum):
     Male = 'Male'
     Female = 'Female'
@@ -47,7 +53,7 @@ class User:
         Subject.History,
         Subject.Maths,
     )
-    hobbies: Tuple[Hobby] = (Hobby.Sports, Hobby.Music)
+    # hobbies: Tuple[Hobby] = (Hobby.Sports, Hobby.Music)
     picture_file: str = 'pic.jpg'
     current_address: str = 'https://www.youtube.com/watch?v=QH2-TGUlwu4'
     state: str = 'Uttar Pradesh'
