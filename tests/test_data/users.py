@@ -74,5 +74,9 @@ cat = User(name='Nyan', gender='Female')
 '''
 
 
-def format_date(value: datetime.date):
-    return value.strftime(config.datetime_format)
+def format_input_date(value: datetime.date):
+    return value.strftime(config.datetime_input_format)
+
+
+def format_view_date(value: datetime.date):
+    return value.strftime(config.datetime_view_format)

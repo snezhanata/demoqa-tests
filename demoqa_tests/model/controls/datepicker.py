@@ -10,7 +10,7 @@ from tests.test_data import users
 
 def typing(element: selene.Element, value: datetime.date):
     key = Keys.COMMAND if sys.platform == 'darwin' else Keys.CONTROL
-    element.send_keys(key, 'a').type(users.format_date(value)).press_enter()
+    element.send_keys(key, 'a').type(users.format_input_date(value)).press_enter()
 
 
 # Проверка по Мартину Фаулеру
