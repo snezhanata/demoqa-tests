@@ -16,9 +16,9 @@ def typing(element: selene.Element, value: datetime.date):
     element.send_keys(key, 'a').type(users.format_date(value)).press_enter()
 
 
-# проверка по Мартину Фаулеру, мы создали свой метод "match.date" (match аналог have)
-def assert_value(element: selene.Element, value: datetime.date):
-    element.should(match.date(value))
+# # проверка по Мартину Фаулеру, мы создали свой метод "match.date" (match аналог have)
+# def assert_value(element: selene.Element, value: datetime.date):
+#     element.should(match.date(value))
 
 
 '''

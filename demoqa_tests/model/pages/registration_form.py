@@ -11,6 +11,7 @@ from tests.test_data.users import Subject, Hobby, user, Gender
 
 state_selector = browser.element('#state')
 city_selector = browser.element('#city')
+birthday_selector = browser.element('#dateOfBirthInput')
 
 
 def select_gender(value: str):
@@ -28,12 +29,12 @@ def set_name(first_name: str, last_name: str):
 
 
 def set_date(value: datetime.date):
-    datepicker.typing(browser.element('#dateOfBirthInput'), value)
+    datepicker.typing(birthday_selector, value)
 
 
 def select_date(day: int, month: str, year: int):
     datepicker.calendar(
-        browser.element('#dateOfBirthInput'),
+        birthday_selector,
         browser.element('.react-datepicker__month-select'),
         browser.element('.react-datepicker__year-select'),
         browser.element(
