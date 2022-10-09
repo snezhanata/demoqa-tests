@@ -3,7 +3,6 @@ import pytest
 from selene.support.shared import browser
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from dotenv import load_dotenv
 from demoqa_tests.utils import attach
 
 
@@ -35,11 +34,11 @@ def browser_management():
     }
     options.capabilities.update(selenoid_capabilities)
 
-    login = os.getenv('user1')
-    password = os.getenv('1234')
+    # login = os.getenv('user1')
+    # password = os.getenv('1234')
 
     driver = webdriver.Remote(
-        command_executor=f"https://{login}:{password} @ selenoid.autotests.cloud / wd / hub",
+        command_executor=f"https://user1:1234@selenoid.autotests.cloud/wd/hub",
         options=options,
     )
     browser.config.driver = driver

@@ -7,13 +7,10 @@ from demoqa_tests.model import app
 from tests.test_data.users import user, Gender, Hobby
 
 
-@allure.title('Successful fill form')
-def test_successful(setup_browser):
-    browser = setup_browser
-
+def test_submit_student_registration_form():
     with allure.step('Open test practice form'):
         app.registration_form.open()
-        # browser.should(have.title('ToolsQA'))
+        browser.should(have.title('ToolsQA'))
 
     with allure.step('Fill test practice form'):
         app.registration_form.set_name(user.first_name, user.last_name)
