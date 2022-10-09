@@ -18,7 +18,7 @@ def browser_management():
     browser.config.window_width = 1000
     browser.config.window_height = 1200
     yield
-    browser.close()
+    browser.driver.close()
 
 
 # @pytest.fixture(autouse=True)
