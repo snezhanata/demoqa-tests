@@ -8,15 +8,16 @@ from demoqa_tests.utils import attach
 
 @pytest.fixture(scope='function', autouse=True)
 def browser_management():
-    # browser.config.base_url = 'https://demoqa.com'
-    browser.config.base_url = os.getenv(
-        'selene.base_url', 'https://demoqa.com'
-    )  # env -S 'selen.base_url = https://google.com' pytest tests/v1/test_practice_form.py
-    # browser.config.browser_name = 'chrome'
+    browser.config.base_url = os.getenv('selene.base_url', 'https://demoqa.com')
     browser.config.browser_name = os.getenv('selene.browser_name', 'chrome')
     browser.config.hold_browser_open = bool(
         os.getenv('selene.hold_browser_open', 'false').lower()
     )
+    '''
+    # browser.config.base_url = 'https://demoqa.com'
+    # env -S 'selen.base_url = https://google.com' pytest tests/v1/test_practice_form.py
+    # browser.config.browser_name = 'chrome'
+    '''
     browser.config.timeout = float(os.getenv('selene.timeout', '3'))
     browser.config.window_width = 1000
     browser.config.window_height = 1200
@@ -34,11 +35,11 @@ def browser_management():
     }
     options.capabilities.update(selenoid_capabilities)
 
-    # login = os.getenv('user1')
-    # password = os.getenv('1234')
+    login = 'user1'
+    password = '1234'
 
     driver = webdriver.Remote(
-        command_executor=f"https://user1:1234@selenoid.autotests.cloud/wd/hub",
+        command_executor=f"https://{login}:{password}@selenoid.autotests.cloud/wd/hub",
         options=options,
     )
     browser.config.driver = driver
@@ -49,4 +50,4 @@ def browser_management():
     attach.add_screenshot(browser)
     attach.add_logs(browser)
     attach.add_video(browser)
-    browser.quit()
+    browser.driver.close()
