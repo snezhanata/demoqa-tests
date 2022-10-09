@@ -2,12 +2,12 @@ import allure
 from selene import have, be
 from selene.support.shared import browser
 
-from demoqa_tests.model.pages import submission_form
 from demoqa_tests.model import app
 from tests.test_data.users import user, Gender, Hobby
 
 
 def test_submit_student_registration_form():
+
     with allure.step('Open test practice form'):
         app.registration_form.open()
         browser.should(have.title('ToolsQA'))
