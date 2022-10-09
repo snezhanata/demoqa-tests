@@ -1,9 +1,13 @@
 import os
 import pytest
 from selene.support.shared import browser
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from dotenv import load_dotenv
+from demoqa_tests.utils import attach
 
 
-@pytest.fixture(scope='session', autouse=True)
+@pytest.fixture(scope='function', autouse=True)
 def browser_management():
     # browser.config.base_url = 'https://demoqa.com'
     browser.config.base_url = os.getenv(
@@ -17,11 +21,33 @@ def browser_management():
     browser.config.timeout = float(os.getenv('selene.timeout', '3'))
     browser.config.window_width = 1000
     browser.config.window_height = 1200
-    yield
-    browser.driver.close()
 
+    # @pytest.fixture(autouse=True)
+    # def change_test_dir_to_project_root(request, monkeypatch):
+    #     monkeypatch.chdir(request.fspath.dirname)
+    # https://stackoverflow.com/questions/62044541/change-pytest-working-directory-to-test-case-directory
 
-# @pytest.fixture(autouse=True)
-# def change_test_dir_to_project_root(request, monkeypatch):
-#     monkeypatch.chdir(request.fspath.dirname)
-# https://stackoverflow.com/questions/62044541/change-pytest-working-directory-to-test-case-directory
+    options = Options()
+    selenoid_capabilities = {
+        "browserName": "chrome",
+        "browserVersion": "100.0",
+        "selenoid:options": {"enableVNC": True, "enableVideo": True},
+    }
+    options.capabilities.update(selenoid_capabilities)
+
+    login = os.getenv('user1')
+    password = os.getenv('1234')
+
+    driver = webdriver.Remote(
+        command_executor=f"https://{login}:{password} @ selenoid.autotests.cloud / wd / hub",
+        options=options,
+    )
+    browser.config.driver = driver
+
+    yield browser
+
+    attach.add_html(browser)
+    attach.add_screenshot(browser)
+    attach.add_logs(browser)
+    attach.add_video(browser)
+    browser.quit()

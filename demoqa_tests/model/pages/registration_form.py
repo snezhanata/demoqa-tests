@@ -1,8 +1,10 @@
 import datetime
+from selene import Browser, Config
 from typing import Tuple
 
 from selene import have, command
-from selene.support.shared import browser
+
+# from selene.support.shared import browser
 
 from demoqa_tests import utils
 from demoqa_tests.model.controls import dropdown, datepicker, radio_button, checkbox
