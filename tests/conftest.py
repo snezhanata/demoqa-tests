@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from selene.support.shared import browser
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from demoqa_tests.utils import attach
 
 
 def pytest_addoption(parser):
@@ -15,8 +14,8 @@ def pytest_addoption(parser):
 @pytest.fixture(scope='function', autouse=True)
 def browser_management(request):
     load_dotenv()
-    # login = os.getenv('user1')
-    # password = os.getenv('1234')
+    login = os.getenv('LOGIN')
+    password = os.getenv('PASSWORD')
     browser_version = request.config.getoption('--browser_version')
     browser.config.base_url = os.getenv('selene.base_url', 'https://demoqa.com')
     browser_name = os.getenv('selene.browser_name', 'selenoid_chrome')
@@ -44,8 +43,6 @@ def browser_management(request):
             "selenoid:options": {"enableVNC": True, "enableVideo": True},
         }
         options.capabilities.update(selenoid_capabilities)
-        login = 'user1'
-        password = '1234'
         browser.config.driver = webdriver.Remote(
             command_executor=f"https://{login}:{password}@selenoid.autotests.cloud/wd/hub",
             options=options,
