@@ -21,7 +21,7 @@ def test_submit_student_registration_form():
         name='Link to the "Student Registration Form"',
     )
 
-    with allure.step('Open the registration form"'):
+    with allure.step('Open the registration form'):
         app.registration_form.open()
         browser.should(have.title('ToolsQA'))
 
@@ -74,7 +74,7 @@ def test_submit_student_registration_form():
             ('State and City', f'{user.state} {user.city}'),
         )
 
-    with allure.step('See an additional info)'):
+    with allure.step('Additional info)'):
         attach.add_html(browser)
         attach.add_screenshot(browser)
         attach.add_logs(browser)
