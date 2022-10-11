@@ -74,7 +74,7 @@ def test_submit_student_registration_form():
             ('State and City', f'{user.state} {user.city}'),
         )
 
-    with allure.step('Additional info)'):
+    with allure.step('Additional info'):
         attach.add_html(browser)
         attach.add_screenshot(browser)
         attach.add_logs(browser)

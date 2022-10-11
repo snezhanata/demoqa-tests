@@ -42,5 +42,8 @@ def add_video(browser):
         + "' type='video/mp4'></video></body></html>"
     )
     allure.attach(
-        html, 'video_' + browser.driver.session_id, AttachmentType.HTML, '.html'
+        body=html,
+        name='video_' + browser.driver.session_id,
+        attachment_type=AttachmentType.HTML,
+        extension='.html',
     )
