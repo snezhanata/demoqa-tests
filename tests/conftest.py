@@ -14,7 +14,7 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope='function', autouse=True)
 def browser_management(request):
-    # load_dotenv()
+    load_dotenv()
     # login = os.getenv('user1')
     # password = os.getenv('1234')
     browser_version = request.config.getoption('--browser_version')
@@ -54,10 +54,4 @@ def browser_management(request):
     else:
         browser.config.browser_name = browser_name
 
-    yield
-
-    attach.add_html(browser)
-    attach.add_screenshot(browser)
-    attach.add_logs(browser)
-    attach.add_video(browser)
-    browser.driver.close()
+    yield browser

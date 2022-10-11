@@ -1,18 +1,31 @@
 import allure
+from allure_commons.types import Severity
 from selene import have, be
 from selene.support.shared import browser
 
 from demoqa_tests.model import app
+from demoqa_tests.utils import attach
 from tests.test_data.users import user, Gender, Hobby
 
 
 def test_submit_student_registration_form():
+    allure.dynamic.tag('blocker')
+    allure.dynamic.severity(Severity.BLOCKER)
+    allure.dynamic.label('owner', 'Snezhana')
+    allure.dynamic.feature('Student Registration Form')
+    allure.dynamic.story(
+        'Check the results of submitting  the "Student Registration Form"'
+    )
+    allure.dynamic.link(
+        'https://demoqa.com/automation-practice-form',
+        name='Link to the "Student Registration Form"',
+    )
 
-    with allure.step('Open test practice form'):
+    with allure.step('Open the registration form"'):
         app.registration_form.open()
         browser.should(have.title('ToolsQA'))
 
-    with allure.step('Fill test practice form'):
+    with allure.step('Fill in the parameters'):
         app.registration_form.set_name(user.first_name, user.last_name)
         app.registration_form.set_contacts(user.email, user.mobile_number)
         app.registration_form.select_gender(user.gender.value)
@@ -45,7 +58,7 @@ def test_submit_student_registration_form():
         app.registration_form.select_city(user.city)
         app.registration_form.submit()
 
-    with allure.step('Check submitted results'):
+    with allure.step('Check the results of form submitting'):
         browser.element('#example-modal-sizes-title-lg').should(be.visible)
         app.submission_form.should_have_table(
             ('Student Name', f'{user.first_name} {user.last_name}'),
@@ -60,3 +73,10 @@ def test_submit_student_registration_form():
             ('Address', user.current_address),
             ('State and City', f'{user.state} {user.city}'),
         )
+
+    with allure.step('See an additional info)'):
+        attach.add_html(browser)
+        attach.add_screenshot(browser)
+        attach.add_logs(browser)
+        attach.add_video(browser)
+        browser.driver.close()
