@@ -38,13 +38,13 @@ def browser_management(request):
 
         options = Options()
         selenoid_capabilities = {
-            "browserName": "chrome",
-            "browserVersion": browser_version,
-            "selenoid:options": {"enableVNC": True, "enableVideo": True},
+            'browserName': 'chrome',
+            'browserVersion': browser_version,
+            'selenoid:options': {'enableVNC': True, 'enableVideo': True},
         }
         options.capabilities.update(selenoid_capabilities)
         browser.config.driver = webdriver.Remote(
-            command_executor=f"https://{login}:{password}@selenoid.autotests.cloud/wd/hub",
+            command_executor=f'https://{login}:{password}@selenoid.autotests.cloud/wd/hub',
             options=options,
         )
 
