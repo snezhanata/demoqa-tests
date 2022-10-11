@@ -1,6 +1,5 @@
 import datetime
 from typing import Tuple
-
 from selene import have, command
 from selene.support.shared import browser
 
@@ -57,9 +56,11 @@ def set_subject(values: Tuple[Subject]):
         browser.element('#subjectsInput').type(subject.value).press_enter()
 
 
-# def fill_subjects(*subjects: str):
-#     for item in subjects:
-#         browser.element('#subjectsInput').type(item).press_enter()
+'''
+def fill_subjects(*subjects: str):
+    for item in subjects:
+        browser.element('#subjectsInput').type(item).press_enter()
+'''
 
 
 def autocomplete_subject(selector: str, /, *, from_: str, to: str = None):
@@ -78,13 +79,15 @@ def select_hobby(values: Tuple[Hobby]):
     checkbox.option(browser.all('[id^=hobbies]'), values)
 
 
-# def fill_hobbies(*options: Hobby):
-#     checkbox.check_options(
-#         browser.all('[for^=hobbies-checkbox]'),
-#         *[option.value for option in options]
-#         # checkbox.check_options(
-#         #     browser.all('[for^=hobbies-checkbox]'), *map(lambda option: option.value, options)
-#     )
+'''
+def fill_hobbies(*options: Hobby):
+    checkbox.check_options(
+        browser.all('[for^=hobbies-checkbox]'),
+        *[option.value for option in options]
+        # checkbox.check_options(
+        #     browser.all('[for^=hobbies-checkbox]'), *map(lambda option: option.value, options)
+    )
+'''
 
 
 def set_address(value: str):
