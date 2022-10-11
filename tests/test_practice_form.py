@@ -21,7 +21,7 @@ def test_submit_student_registration_form():
         name='Link to the "Student Registration Form"',
     )
 
-    with allure.step('Open the registration form"'):
+    with allure.step('Open the registration form'):
         app.registration_form.open()
         browser.should(have.title('ToolsQA'))
 
