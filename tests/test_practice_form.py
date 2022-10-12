@@ -79,4 +79,3 @@ def test_submit_student_registration_form():
         attach.add_screenshot(browser)
         attach.add_logs(browser)
         attach.add_video(browser)
-        browser.driver.close()
