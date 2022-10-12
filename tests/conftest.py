@@ -44,4 +44,4 @@ def browser_management(request):
         )
         browser.config.driver = driver
     yield browser
-    # browser.driver.close()
+    browser.driver.close()
