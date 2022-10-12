@@ -4,7 +4,7 @@ from selene import have, be
 from selene.support.shared import browser
 
 from demoqa_tests.model import app
-from demoqa_tests.utils import attach
+from demoqa_tests.utils import attachments
 from tests.test_data.users import user, Gender, Hobby
 
 
@@ -75,7 +75,4 @@ def test_submit_student_registration_form():
         )
 
     with allure.step('Additional info'):
-        attach.add_html(browser)
-        attach.add_screenshot(browser)
-        attach.add_logs(browser)
-        attach.add_video(browser)
+        attachments.list_(browser)

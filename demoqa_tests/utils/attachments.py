@@ -47,3 +47,10 @@ def add_video(browser):
         attachment_type=AttachmentType.HTML,
         extension='.html',
     )
+
+
+def list_(value):
+    add_html(value)
+    add_screenshot(value)
+    add_logs(value)
+    add_video(value)
