@@ -13,7 +13,7 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope='session', autouse=True)
 def browser_management(request):
-    browser_name = os.getenv('selene.browser_name', 'chrome')
+    browser_name = os.getenv('selene.browser_name', 'selenoid')
     browser.config.window_width = 1000
     browser.config.window_height = 1200
     browser.config.base_url = os.getenv('selene.base_url', 'https://demoqa.com')
