@@ -6,6 +6,8 @@ from selene.support.shared import browser
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
+browser_name = os.getenv('selene.browser_name', 'selenoid')
+
 
 def pytest_addoption(parser):
     parser.addoption('--browser_version', default='99.0')
@@ -13,7 +15,6 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope='session', autouse=True)
 def browser_management(request):
-    browser_name = os.getenv('selene.browser_name', 'selenoid')
     browser.config.window_width = 1000
     browser.config.window_height = 1200
     browser.config.base_url = os.getenv('selene.base_url', 'https://demoqa.com')
