@@ -1,6 +1,8 @@
 import allure
 from allure_commons.types import AttachmentType
 
+from tests.conftest import browser_name
+
 
 def add_screenshot(browser):
     png = browser.driver.get_screenshot_as_png()
@@ -53,4 +55,5 @@ def list_(value):
     add_html(value)
     add_screenshot(value)
     add_logs(value)
-    add_video(value)
+    if browser_name == 'selenoid':
+        add_video(value)
