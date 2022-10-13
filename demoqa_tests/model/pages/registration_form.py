@@ -17,7 +17,7 @@ birthday_selector = browser.element('#dateOfBirthInput')
 
 def open():
     browser.open('/automation-practice-form')
-    google.ads_remove(amount=4, timeout=2)
+    google.ads_remove(amount=4, timeout=3)
 
 
 def select_gender(value: str):
