@@ -9,7 +9,7 @@ from demoqa_tests.model import google
 from demoqa_tests.model.controls.datepicker import DatePicker
 from demoqa_tests.utils import path
 from demoqa_tests.utils.selene.conditions import match
-from tests.test_data.users import Subject, Hobby, user, Gender
+from tests.test_data.users import Subject, Hobby, user
 
 
 class RegistrationForm:
@@ -26,9 +26,6 @@ class RegistrationForm:
     def select_gender(self, value: str):
         radio_button.option(browser.all('[for^=gender-radio]'), value)
         return self
-
-    # def fill_gender(value: Gender):
-    #     radio_button.set_option('gender', value.value)  # noqa
 
     def fill_contacts(self, email: str, mobile: int):
         browser.element('#userEmail').type(email)
@@ -53,17 +50,11 @@ class RegistrationForm:
         self.birthday.calendar(day, month, year)
         return self
 
-    def fill_subject(self, values: Tuple[Subject]):
+    def fill_subjects(self, values: Tuple[Subject]):
         for subject in values:
             browser.element('#subjectsInput').type(subject.value).press_enter()
 
         return self
-
-    '''
-    def fill_subjects(*subjects: str):
-        for item in subjects:
-            browser.element('#subjectsInput').type(item).press_enter()
-    '''
 
     def autocomplete_subject(self, selector: str, /, *, from_: str, to: str = None):
         browser.element(selector).type(from_)
@@ -77,19 +68,13 @@ class RegistrationForm:
             ).perform(command.js.click)
         return self
 
-    def select_hobby(self, values: Tuple[Hobby]):
+    def select_hobbies(self, values: Tuple[Hobby]):
         checkbox.option(browser.all('[id^=hobbies]'), values)
         return self
 
-    '''
-    def fill_hobbies(*options: Hobby):
-        checkbox.check_options(
-            browser.all('[for^=hobbies-checkbox]'),
-            *[option.value for option in options]
-            # checkbox.check_options(
-            #     browser.all('[for^=hobbies-checkbox]'), *map(lambda option: option.value, options)
-        )
-    '''
+    def select_picture(self, file_name):
+        browser.element('#uploadPicture').send_keys(path.to_resource(user.picture_file))
+        return self
 
     def fill_address(self, value: str):
         browser.element('#currentAddress').type(value)
@@ -109,8 +94,4 @@ class RegistrationForm:
 
     def submit(self):
         browser.element('#submit').perform(command.js.click)
-        return self
-
-    def select_picture(self, file_name):
-        browser.element('#uploadPicture').send_keys(path.to_resource(user.picture_file))
         return self
