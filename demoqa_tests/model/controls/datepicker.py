@@ -23,13 +23,13 @@ class DatePicker:
         return self
 
     # Проверка по Мартину Фаулеру
-    def assert_value(self, value: datetime.date):
-        self.element.should(match.date(value))
-        return self
+    # def assert_value(self, value: datetime.date):
+    #     self.element.should(match.date(value))
+    #     return self
 
     # проверка НЕ по Мартину Фаулеру
-    # def assert_value(element:selene.Element, date: datetime.date):
-    #     element.should(have.value(users.format_date(date)))
+    def assert_value(element: selene.Element, date: datetime.date):
+        element.should(match.value(users.format_input_date(date)))
 
     '''
     OR

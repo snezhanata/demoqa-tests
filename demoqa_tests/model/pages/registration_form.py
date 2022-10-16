@@ -45,8 +45,8 @@ class RegistrationForm:
         return self
 
     def assert_fill_date(self, value: datetime.date):
-        self.birthday.should(match.date(value))  # проверка по Мартину Фаулеру
-        # datepicker.assert_value(birthday_selector, value) # проверка НЕ по Мартину Фаулеру
+        # self.birthday.should(match.date(value))  # проверка по Мартину Фаулеру
+        self.birthday.assert_value(value)  # проверка НЕ по Мартину Фаулеру
         return self
 
     def select_date(self, day: int, month: str, year: int):
