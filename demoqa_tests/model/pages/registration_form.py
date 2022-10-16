@@ -30,12 +30,12 @@ class RegistrationForm:
     # def fill_gender(value: Gender):
     #     radio_button.set_option('gender', value.value)  # noqa
 
-    def set_contacts(self, email: str, mobile: int):
+    def fill_contacts(self, email: str, mobile: int):
         browser.element('#userEmail').type(email)
         browser.element('#userNumber').type(mobile)
         return self
 
-    def set_name(self, first_name: str, last_name: str):
+    def fill_name(self, first_name: str, last_name: str):
         browser.element('#firstName').type(first_name)
         browser.element('#lastName').type(last_name)
         return self
@@ -53,7 +53,7 @@ class RegistrationForm:
         self.birthday.calendar(day, month, year)
         return self
 
-    def set_subject(self, values: Tuple[Subject]):
+    def fill_subject(self, values: Tuple[Subject]):
         for subject in values:
             browser.element('#subjectsInput').type(subject.value).press_enter()
 
@@ -91,7 +91,7 @@ class RegistrationForm:
         )
     '''
 
-    def set_address(self, value: str):
+    def fill_address(self, value: str):
         browser.element('#currentAddress').type(value)
         return self
 
