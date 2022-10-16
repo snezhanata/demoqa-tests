@@ -58,6 +58,11 @@ def test_submit_student_registration_form():
         attachments.list_(browser)
 
     '''    
+        birthday = DatePicker()
+        birthday.element = browser.element('#dateOfBirthInput')
+        birthday.typing(datetime.date(2000, 8, 30))
+        birthday.assert_value(datetime.date(2000, 8, 30))
+        
         # Как обрабатывает Python:
         birthday = object.__new__()
         DatePicker.__init__(birthday)
