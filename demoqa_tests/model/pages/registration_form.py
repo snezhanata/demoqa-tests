@@ -71,8 +71,8 @@ class RegistrationForm:
         checkbox.option(browser.all('[id^=hobbies]'), values)
         return self
 
-    def select_picture(self):
-        browser.element('#uploadPicture').send_keys(path.to_resource(user.picture_file))
+    def select_picture(self, file_name):
+        browser.element('#uploadPicture').send_keys(path.to_resource(file_name))
         return self
 
     def fill_address(self, value: str):
