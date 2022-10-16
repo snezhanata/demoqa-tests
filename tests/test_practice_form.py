@@ -1,11 +1,10 @@
-import datetime
-
 import allure
 from allure_commons.types import Severity
 from selene.support.shared import browser
 
 from demoqa_tests.model import app
 from demoqa_tests.utils import attachments
+
 from tests.test_data.users import user
 
 
@@ -27,6 +26,8 @@ def test_submit_student_registration_form():
         app.registration_form.open()
 
     with allure.step('Fill in the parameters'):
+        # app.registration_form.fill_in(user)
+        # OR:
         (
             app.registration_form.fill_name(user.first_name, user.last_name)
             .fill_contacts(user.email, user.mobile_number)
@@ -45,6 +46,8 @@ def test_submit_student_registration_form():
         )
 
     with allure.step('Check the results of form submitting'):
+        # app.registration_form.check_results(user)
+        # OR:
         app.submission_form.should_have_table(
             ('Student Name', f'{user.first_name} {user.last_name}'),
             ('Student Email', user.email),
