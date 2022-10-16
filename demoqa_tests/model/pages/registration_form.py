@@ -8,7 +8,6 @@ from demoqa_tests.model.controls import dropdown, datepicker, radio_button, chec
 from demoqa_tests.model import google
 from demoqa_tests.model.controls.datepicker import DatePicker
 from demoqa_tests.utils import path
-from demoqa_tests.utils.selene.conditions import match
 from tests.test_data.users import Subject, Hobby, user
 
 
@@ -72,7 +71,7 @@ class RegistrationForm:
         checkbox.option(browser.all('[id^=hobbies]'), values)
         return self
 
-    def select_picture(self, file_name):
+    def select_picture(self):
         browser.element('#uploadPicture').send_keys(path.to_resource(user.picture_file))
         return self
 
@@ -80,14 +79,12 @@ class RegistrationForm:
         browser.element('#currentAddress').type(value)
         return self
 
-    # допиши автокомплит
     def select_state(self, value: str):
         utils.browser.scroll_to_view(self.state_selector)
         # utils.browser.scroll_one_page()
         dropdown.select(self.state_selector, value)
         return self
 
-    # допиши автокомплит
     def select_city(self, value: str):
         dropdown.select(self.city_selector, value)
         return self

@@ -22,6 +22,7 @@ def test_submit_student_registration_form():
         'https://demoqa.com/automation-practice-form',
         name='Link to the "Student Registration Form"',
     )
+
     with allure.step('Open the registration form'):
         app.registration_form.open()
 
@@ -30,7 +31,8 @@ def test_submit_student_registration_form():
             app.registration_form.fill_name(user.first_name, user.last_name)
             .fill_contacts(user.email, user.mobile_number)
             .select_gender(user.gender.value)
-            .fill_date(datetime.date(2000, 8, 30))
+            # .fill_date(datetime.date(2000, 8, 30))
+            .select_date(user.birth_day, user.birth_month, user.birth_year)
             .fill_subjects(user.subjects)
             .select_hobbies(user.hobbies)
             .select_picture(user.picture_file)
