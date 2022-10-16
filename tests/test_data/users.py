@@ -1,11 +1,9 @@
 import datetime
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import Enum
-from typing import List, Tuple, Literal
+from typing import Tuple
 
 from demoqa_tests import config
-
-sample_email = lambda domain='gmail': f'nyan.cat@{domain}.com'
 
 
 class Subject(Enum):
@@ -20,58 +18,52 @@ class Hobby(Enum):
     Music = '3'
 
 
-# class Hobby(Enum):
-#     Music = 'Music'
-#     Reading = 'Reading'
-#     Sports = 'Sports'
-
-
 class Gender(Enum):
     Male = 'Male'
     Female = 'Female'
     Other = 'Other'
 
 
-#
-# class Gender(Enum):
-#     Male = 1
-#     Female = 2
-#     Other = 3
-
-
-'''
-OR 
-Gender = Literal['Male', 'Female', 'Other']
-'''
-
-
 @dataclass
 class User:
     first_name: str
     gender: Gender
-    last_name: str = 'Cat'
-    email: str = sample_email()
-    mobile_number: str = '0123401234'
-    birth_day: str = '30'
-    birth_month: str = 'August'
-    birth_year: str = '2000'
+    last_name: str
+    email: str
+    mobile_number: str
+    birth_date: datetime.date
+    birth_day: str
+    birth_month: str
+    birth_year: str
     # date_of_birth: str = '08 August,2000' # noqa
-    subjects: Tuple[Subject] = (
+    subjects: Tuple
+    hobbies: Tuple
+    picture_file: str
+    current_address: str
+    state: str
+    city: str
+
+
+user = User(
+    first_name='Nyan',
+    gender=Gender.Female,
+    last_name='Cat',
+    email='nyan.cat@gmail.com',
+    mobile_number='0123401234',
+    birth_date=datetime.date(2000, 8, 30),
+    birth_day='30',
+    birth_month='August',
+    birth_year='2000',
+    subjects=(
         Subject.History,
         Subject.Maths,
-    )
-    hobbies: Tuple[Hobby] = (Hobby.Sports, Hobby.Music)
-    picture_file: str = 'pic.jpg'
-    current_address: str = 'https://www.youtube.com/watch?v=QH2-TGUlwu4'
-    state: str = 'Uttar Pradesh'
-    city: str = 'Agra'
-
-
-user = User(first_name='Nyan', gender=Gender.Female)
-'''
-OR (for Literal case)
-cat = User(name='Nyan', gender='Female')
-'''
+    ),
+    hobbies=(Hobby.Sports, Hobby.Music),
+    picture_file='pic.jpg',
+    current_address='https://www.youtube.com/watch?v=QH2-TGUlwu4',
+    state='Uttar Pradesh',
+    city='Agra',
+)
 
 
 def format_input_date(value: datetime.date):

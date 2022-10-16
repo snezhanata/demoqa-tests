@@ -1,14 +1,15 @@
 import allure
 from allure_commons.types import Severity
-from selene import have, be
 from selene.support.shared import browser
 
 from demoqa_tests.model import app
 from demoqa_tests.utils import attachments
-from tests.test_data.users import user, Gender, Hobby
+
+from tests.test_data.users import user
 
 
 def test_submit_student_registration_form():
+
     allure.dynamic.tag('blocker')
     allure.dynamic.severity(Severity.BLOCKER)
     allure.dynamic.label('owner', 'Snezhana')
@@ -23,48 +24,34 @@ def test_submit_student_registration_form():
 
     with allure.step('Open the registration form'):
         app.registration_form.open()
-        browser.should(have.title('ToolsQA'))
 
     with allure.step('Fill in the parameters'):
-        app.registration_form.set_name(user.first_name, user.last_name)
-        app.registration_form.set_contacts(user.email, user.mobile_number)
-        app.registration_form.select_gender(user.gender.value)
-        '''
-        registration_form.fill_gender(Gender.Female)
-        '''
-        app.registration_form.select_date(
-            user.birth_day, user.birth_month, user.birth_year
+        # app.registration_form.fill_in(user)
+        # OR:
+        (
+            app.registration_form.fill_name(user.first_name, user.last_name)
+            .fill_contacts(user.email, user.mobile_number)
+            .select_gender(user.gender.value)
+            .fill_date(user.birth_date)
+            # .select_date(user.birth_day, user.birth_month, user.birth_year)
+            .fill_subjects(user.subjects)
+            # .add_subjects_by_autocomplete('#subjectsInput', from_='Hi', to='History')
+            # .add_subjects_by_autocomplete('#subjectsInput', from_='Mat', to='Maths')
+            .select_hobbies(user.hobbies)
+            .select_picture(user.picture_file)
+            .fill_address(user.current_address)
+            .select_state(user.state)
+            .select_city(user.city)
+            .submit()
         )
-        '''
-        registration_form.set_date(datetime.date(2000, 8, 30))
-        registration_form.assert_set_date(datetime.date(2000, 8, 30))
-        '''
-        app.registration_form.set_subject(user.subjects)
-        '''
-        registration_form.fill_subjects('History', 'Maths')
-        registration_form.add_subjects_by_autocomplete('#subjectsInput', from_='Hi', to='History')
-        registration_form.add_subjects_by_autocomplete('#subjectsInput', from_='Mat', to='Maths')
-        '''
-        app.registration_form.select_hobby(user.hobbies)
-        '''
-        registration_form.fill_hobbies(Hobby.Music, Hobby.Reading)
-        '''
-        app.registration_form.select_picture(user.picture_file)
-        app.registration_form.set_address(user.current_address)
-        '''
-        registration_form.select_state(user.state)
-        '''
-        app.registration_form.select_state(user.state)
-        app.registration_form.select_city(user.city)
-        app.registration_form.submit()
 
     with allure.step('Check the results of form submitting'):
-        browser.element('#example-modal-sizes-title-lg').should(be.visible)
+        # app.registration_form.check_results(user)
+        # OR:
         app.submission_form.should_have_table(
             ('Student Name', f'{user.first_name} {user.last_name}'),
             ('Student Email', user.email),
             ('Gender', user.gender.value),
-            # ('Gender', user.gender.name),
             ('Mobile', user.mobile_number),
             ('Date of Birth', f'{user.birth_day} {user.birth_month},{user.birth_year}'),
             ('Subjects', ', '.join([subject.value for subject in user.subjects])),
@@ -76,3 +63,23 @@ def test_submit_student_registration_form():
 
     with allure.step('Additional info'):
         attachments.list_(browser)
+
+    '''    
+        # Steps Object:
+        app.registration_form.register(
+            first_name='Nyan',
+            last_name='Cat',
+            email='nyan.cat@gmail.com',
+            mobile_number='0123401234',
+        )
+        birthday = DatePicker()
+        birthday.element = browser.element('#dateOfBirthInput')
+        birthday.typing(datetime.date(2000, 8, 30))
+        birthday.assert_value(datetime.date(2000, 8, 30))
+        
+        # Как обрабатывает внутри Python:
+        birthday = object.__new__()
+        DatePicker.__init__(birthday)
+        DatePicker.typing(birthday, datetime.date(2000, 8, 30))
+        DatePicker.assert_value(birthday, datetime.date(2000, 8, 30))
+    '''

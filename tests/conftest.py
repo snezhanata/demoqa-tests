@@ -6,7 +6,7 @@ from selene.support.shared import browser
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-browser_name = os.getenv('selene.browser_name', 'selenoid')
+browser_name = os.getenv('selene.browser_name', 'chrome')
 
 
 def pytest_addoption(parser):
