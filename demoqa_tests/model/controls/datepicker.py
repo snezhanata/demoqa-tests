@@ -19,7 +19,7 @@ def typing(element: selene.Element, value: datetime.date):
 
 # проверка НЕ по Мартину Фаулеру
 # def assert_value(element:selene.Element, date: datetime.date):
-#     element.should(have.value(users.format_date(date)))
+#     element.should(have.value(users.format_input_date(date)))
 
 '''
 OR
