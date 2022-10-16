@@ -31,7 +31,7 @@ def test_submit_student_registration_form():
             app.registration_form.fill_name(user.first_name, user.last_name)
             .fill_contacts(user.email, user.mobile_number)
             .select_gender(user.gender.value)
-            .fill_date(datetime.date(2000, 8, 30))
+            .fill_date(user.birth_date)
             # .select_date(user.birth_day, user.birth_month, user.birth_year)
             .fill_subjects(user.subjects)
             # .add_subjects_by_autocomplete('#subjectsInput', from_='Hi', to='History')

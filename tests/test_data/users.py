@@ -31,6 +31,7 @@ class User:
     last_name: str
     email: str
     mobile_number: str
+    birth_date: datetime.date
     birth_day: str
     birth_month: str
     birth_year: str
@@ -49,6 +50,7 @@ user = User(
     last_name='Cat',
     email='nyan.cat@gmail.com',
     mobile_number='0123401234',
+    birth_date=datetime.date(2000, 8, 30),
     birth_day='30',
     birth_month='August',
     birth_year='2000',
