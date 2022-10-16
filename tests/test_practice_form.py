@@ -31,9 +31,11 @@ def test_submit_student_registration_form():
             app.registration_form.fill_name(user.first_name, user.last_name)
             .fill_contacts(user.email, user.mobile_number)
             .select_gender(user.gender.value)
-            # .fill_date(datetime.date(2000, 8, 30))
-            .select_date(user.birth_day, user.birth_month, user.birth_year)
+            .fill_date(datetime.date(2000, 8, 30))
+            # .select_date(user.birth_day, user.birth_month, user.birth_year)
             .fill_subjects(user.subjects)
+            # .add_subjects_by_autocomplete('#subjectsInput', from_='Hi', to='History')
+            # .add_subjects_by_autocomplete('#subjectsInput', from_='Mat', to='Maths')
             .select_hobbies(user.hobbies)
             .select_picture(user.picture_file)
             .fill_address(user.current_address)
@@ -60,18 +62,6 @@ def test_submit_student_registration_form():
         attachments.list_(browser)
 
     '''    
-        birthday = DatePicker()
-        birthday.element = browser.element('#dateOfBirthInput')
-        birthday.typing(datetime.date(2000, 8, 30))
-        birthday.assert_value(datetime.date(2000, 8, 30))
-        
-        # Как обрабатывает Python:
-        birthday = object.__new__()
-        DatePicker.__init__(birthday)
-        DatePicker.typing(birthday, datetime.date(2000, 8, 30))
-        DatePicker.assert_value(birthday, datetime.date(2000, 8, 30))'''
-
-    '''
         # Steps Object:
         app.registration_form.register(
             first_name='Nyan',
@@ -79,4 +69,14 @@ def test_submit_student_registration_form():
             email='nyan.cat@gmail.com',
             mobile_number='0123401234',
         )
+        birthday = DatePicker()
+        birthday.element = browser.element('#dateOfBirthInput')
+        birthday.typing(datetime.date(2000, 8, 30))
+        birthday.assert_value(datetime.date(2000, 8, 30))
+        
+        # Как обрабатывает внутри Python:
+        birthday = object.__new__()
+        DatePicker.__init__(birthday)
+        DatePicker.typing(birthday, datetime.date(2000, 8, 30))
+        DatePicker.assert_value(birthday, datetime.date(2000, 8, 30))
     '''
