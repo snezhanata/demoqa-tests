@@ -91,21 +91,14 @@ def test_submit_student_registration_form():
         attachments.list_(browser)
 
     '''
-        # Steps Object:
-        app.registration_form.register(
-            first_name='Nyan',
-            last_name='Cat',
-            email='nyan.cat@gmail.com',
-            mobile_number='0123401234',
-        )
         birthday = DatePicker()
         birthday.element = browser.element('#dateOfBirthInput')
         birthday.typing(datetime.date(2000, 8, 30))
         birthday.assert_value(datetime.date(2000, 8, 30))
 
-        # Как обрабатывает внутри Python:
-        birthday = object.__new__()
+        # Что под капотом, откуда берется self:
+        birthday = object.__new__(DatePicker) # можно и так вызвать: DatePicker.__new__(DatePicker)
         DatePicker.__init__(birthday)
-        DatePicker.typing(birthday, datetime.date(2000, 8, 30))
+        DatePicker.set_date(birthday, datetime.date(2000, 8, 30))
         DatePicker.assert_value(birthday, datetime.date(2000, 8, 30))
     '''
