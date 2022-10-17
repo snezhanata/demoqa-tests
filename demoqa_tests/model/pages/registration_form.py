@@ -3,12 +3,12 @@ from typing import Tuple
 from selene import have, command
 from selene.support.shared import browser
 
-from demoqa_tests import utils
-
 from demoqa_tests.model.controls import radio_button, checkbox
 from demoqa_tests.model import google
 from demoqa_tests.model.controls.datepicker import DatePicker
 from demoqa_tests.model.controls.dropdown import Dropdown
+from demoqa_tests.model.controls.checkbox import Checkbox
+from demoqa_tests.model.controls.radio_button import RadioButton
 from demoqa_tests.model.pages.submission_form import SubmissionForm
 from demoqa_tests.utils import path
 from tests.test_data.users import Subject, Hobby
@@ -19,6 +19,8 @@ class RegistrationForm:
         self.state_selector = Dropdown(browser.element('#state'))
         self.city_selector = Dropdown(browser.element('#city'))
         self.birthday_selector = DatePicker(browser.element('#dateOfBirthInput'))
+        self.hobbies_selector = Checkbox(browser.all('[id^=hobbies]'))
+        self.gender_selector = RadioButton(browser.all('[for^=gender-radio]'))
 
     def open(self):
         browser.open('/automation-practice-form')
@@ -26,7 +28,7 @@ class RegistrationForm:
         return self
 
     def select_gender(self, value: str):
-        radio_button.option(browser.all('[for^=gender-radio]'), value)
+        self.gender_selector.option(value)
         return self
 
     def fill_contacts(self, email: str, mobile: int):
@@ -52,20 +54,9 @@ class RegistrationForm:
         self.birthday_selector.calendar(day, month, year)
         return self
 
-    def select_state(self, value: str):
-        utils.browser.scroll_to_view(self.state_selector)
-        # utils.browser.scroll_one_page()
-        self.state_selector.select(value)
-        return self
-
-    def select_city(self, value: str):
-        self.city_selector.select(value)
-        return self
-
     def fill_subjects(self, values: Tuple[Subject]):
         for subject in values:
             browser.element('#subjectsInput').type(subject.value).press_enter()
-
         return self
 
     def autocomplete_subject(self, selector: str, /, *, from_: str, to: str = None):
@@ -81,7 +72,7 @@ class RegistrationForm:
         return self
 
     def select_hobbies(self, values: Tuple[Hobby]):
-        checkbox.option(browser.all('[id^=hobbies]'), values)
+        self.hobbies_selector.option(values)
         return self
 
     def select_picture(self, file_name):
@@ -90,6 +81,15 @@ class RegistrationForm:
 
     def fill_address(self, value: str):
         browser.element('#currentAddress').type(value)
+        return self
+
+    def select_state(self, value: str):
+        self.state_selector.scroll_to_view()
+        self.state_selector.select(value)
+        return self
+
+    def select_city(self, value: str):
+        self.city_selector.select(value)
         return self
 
     def submit(self):
