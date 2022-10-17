@@ -96,9 +96,10 @@ class RegistrationForm:
         browser.element('#submit').perform(command.js.click)
         return self
 
-    def fill_in(self, user):
+    def enrollment(self, user):
         (
-            self.fill_name(user.first_name, user.last_name)
+            self.open()
+            .fill_name(user.first_name, user.last_name)
             .fill_contacts(user.email, user.mobile_number)
             .select_gender(user.gender.value)
             .fill_date(user.birth_date)
@@ -115,7 +116,7 @@ class RegistrationForm:
         )
         return self
 
-    def check_results(self, user):
+    def assert_enrollment(self, user):
         submition_form = SubmissionForm()
         submition_form.should_have_table(
             ('Student Name', f'{user.first_name} {user.last_name}'),
