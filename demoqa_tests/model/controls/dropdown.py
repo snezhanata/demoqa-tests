@@ -1,18 +1,19 @@
+import selene
 from selene import have, command
 from selene.support.shared import browser
 
 
-def select(element, option):
-    element.click()
-    browser.all('[id^=react-select][id*=-option-]').by(
-        have.exact_text(option)
-    ).first.click()  # react-select-3-option-2
+class Dropdown:
+    def __init__(self, element: selene.Element):
+        self.element = element
 
+    def scroll_to_view(self):
+        self.element.perform(command.js.scroll_into_view)
+        return self
 
-# def select(element, option, autocomplete: bool = False):
-# def autocomplete(selector: str, from_: str, to: str = None):
-#     browser.element(selector).click().type(from_)
-#     if to is not None:
-#         browser.element('#state').element_by(have.text(to)).perform(command.js.click)
-#     else:
-#         browser.element('#state').element_by(have.text(from_)).perform(command.js.click)
+    def select(self, option):
+        self.element.click()
+        browser.all('[id^=react-select][id*=-option-]').by(
+            have.exact_text(option)
+        ).first.click()  # react-select-3-option-2
+        return self

@@ -5,9 +5,13 @@ import selene
 from tests.test_data.users import Hobby
 
 
-def option(element: selene.Element, values: Tuple[Hobby]):
-    for hobby in values:
-        element.by(have.value(hobby.value)).first.element('..').click()  # noqa
+class Checkbox:
+    def __init__(self, element: selene.Element):
+        self.element = element
+
+    def option(self, values: Tuple[Hobby]):
+        for hobby in values:
+            self.element.by(have.value(hobby.value)).first.element('..').click()  # noqa
 
 
 # def check_options(elements, *options: str):
