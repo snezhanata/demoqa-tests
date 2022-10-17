@@ -1,3 +1,5 @@
+import datetime
+
 import allure
 from allure_commons.types import Severity
 from selene.support.shared import browser
@@ -5,9 +7,37 @@ from selene.support.shared import browser
 from demoqa_tests.model import app
 from demoqa_tests.utils import attachments
 
-from tests.test_data.users import user
+from tests.test_data.users import user, User, Gender, Subject, Hobby
+
+# Steps Object
+
+eren = User(
+    first_name='Eren',
+    gender=Gender.Male,
+    last_name='Yeager',
+    email='eren.yeager@gmail.com',
+    mobile_number='0123401234',
+    birth_date=datetime.date(1993, 5, 19),
+    birth_day='19',
+    birth_month='May',
+    birth_year='1993',
+    subjects=(
+        Subject.History,
+        Subject.Maths,
+    ),
+    hobbies=(Hobby.Sports, Hobby.Music),
+    picture_file='pic_2.png',
+    current_address='Shiganshina',
+    state='Uttar Pradesh',
+    city='Agra',
+)
 
 
+def test_submit_student_registration_form_business_step():
+    app.registration_form.enrollment(eren).assert_enrollment(eren)
+
+
+# Fluent Page Object
 def test_submit_student_registration_form():
 
     allure.dynamic.tag('blocker')
@@ -26,8 +56,6 @@ def test_submit_student_registration_form():
         app.registration_form.open()
 
     with allure.step('Fill in the parameters'):
-        # app.registration_form.fill_in(user)
-        # OR:
         (
             app.registration_form.fill_name(user.first_name, user.last_name)
             .fill_contacts(user.email, user.mobile_number)
@@ -46,8 +74,6 @@ def test_submit_student_registration_form():
         )
 
     with allure.step('Check the results of form submitting'):
-        # app.registration_form.check_results(user)
-        # OR:
         app.submission_form.should_have_table(
             ('Student Name', f'{user.first_name} {user.last_name}'),
             ('Student Email', user.email),
@@ -64,7 +90,7 @@ def test_submit_student_registration_form():
     with allure.step('Additional info'):
         attachments.list_(browser)
 
-    '''    
+    '''
         # Steps Object:
         app.registration_form.register(
             first_name='Nyan',
@@ -76,7 +102,7 @@ def test_submit_student_registration_form():
         birthday.element = browser.element('#dateOfBirthInput')
         birthday.typing(datetime.date(2000, 8, 30))
         birthday.assert_value(datetime.date(2000, 8, 30))
-        
+
         # Как обрабатывает внутри Python:
         birthday = object.__new__()
         DatePicker.__init__(birthday)
