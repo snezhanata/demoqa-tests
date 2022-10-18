@@ -34,7 +34,7 @@ eren = User(
 
 
 def test_submit_student_registration_form_business_step():
-    app.registration_form.enrollment(eren).assert_enrollment(eren)
+    app.registration_form.open().enrollment(eren).assert_enrollment(eren)
 
 
 # Fluent Page Object

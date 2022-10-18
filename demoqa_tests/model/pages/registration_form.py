@@ -104,8 +104,7 @@ class RegistrationForm:
 
     def enrollment(self, user):
         (
-            self.open()
-            .fill_name(user.first_name, user.last_name)
+            self.fill_name(user.first_name, user.last_name)
             .fill_contacts(user.email, user.mobile_number)
             .select_gender(user.gender.value)
             .fill_date(user.birth_date)
