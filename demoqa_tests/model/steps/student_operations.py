@@ -3,18 +3,22 @@ from selene.support.shared import browser
 from demoqa_tests.model import google
 from demoqa_tests.model.pages.registration_form import RegistrationForm
 from demoqa_tests.model.pages.submission_form import SubmissionForm
+from tests.test_data.users import User
 
 
 class StudentOperations:
+    def __init__(self):
+        self.registration_form = RegistrationForm()
+        self.submission_form = SubmissionForm()
+
     def open(self):
         browser.open('/automation-practice-form')
         google.ads_remove(amount=4, timeout=5)
         return self
 
-    def enrollment(self, user):
+    def enrollment(self, user: User):  # User = type hint
         (
-            RegistrationForm()
-            .fill_name(user.first_name, user.last_name)
+            self.registration_form.fill_name(user.first_name, user.last_name)
             .fill_contacts(user.email, user.mobile_number)
             .select_gender(user.gender.value)
             .fill_date(user.birth_date)
@@ -32,7 +36,7 @@ class StudentOperations:
         return self
 
     def assert_enrollment(self, user):
-        SubmissionForm().should_have_table(
+        self.submission_form.should_have_table(
             ('Student Name', f'{user.first_name} {user.last_name}'),
             ('Student Email', user.email),
             ('Gender', user.gender.value),
