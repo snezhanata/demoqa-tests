@@ -1,9 +1,14 @@
 import datetime
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from typing import Tuple
 
+import mimesis
+from mimesis import Person, enums
+
 from demoqa_tests import config
+
+fake_person = Person('en')
 
 
 class Subject(Enum):
@@ -29,7 +34,12 @@ class User:
     first_name: str
     gender: Gender
     last_name: str
+    # last_name: fake_person.last_name()  # фамилия случайным образом определится, но при повторном вызове сохранится
+    # last_name: field(
+    #     default_factory=lambda: fake_person.last_name()
+    # )  # если хочешь рандомную фамилию каждый вызов
     email: str
+    # email: fake_person.email()
     mobile_number: str
     birth_date: datetime.date
     birth_day: str
@@ -93,3 +103,17 @@ def format_input_date(value: datetime.date):
 
 def format_view_date(value: datetime.date):
     return value.strftime(config.datetime_view_format)
+
+
+def __post_init__(self):
+    if self.first_name is ...:
+        self.first_name = fake_person.first_name(
+            gender=mimesis.enums.Gender(value=self.gender.value.lower())
+        )
+    if self.last_name is ...:
+        self.last_name = fake_person.last_name(
+            gender=mimesis.enums.Gender(value=self.gender.value.lower())
+        )
+
+
+user = User(gender=Gender.Male)
