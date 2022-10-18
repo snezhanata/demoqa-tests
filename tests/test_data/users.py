@@ -34,18 +34,12 @@ class User:
     first_name: str
     gender: Gender
     last_name: str
-    # last_name: fake_person.last_name()  # фамилия случайным образом определится, но при повторном вызове сохранится
-    # last_name: field(
-    #     default_factory=lambda: fake_person.last_name()
-    # )  # если хочешь рандомную фамилию каждый вызов
     email: str
-    # email: fake_person.email()
     mobile_number: str
     birth_date: datetime.date
     birth_day: str
     birth_month: str
     birth_year: str
-    # date_of_birth: str = '08 August,2000' # noqa
     subjects: Tuple
     hobbies: Tuple
     picture_file: str
@@ -105,6 +99,18 @@ def format_view_date(value: datetime.date):
     return value.strftime(config.datetime_view_format)
 
 
+@dataclass
+class RandomName:
+    gender: Gender
+    # если хочешь рандомное значение каждый вызов:
+    first_name: str = field(default_factory=lambda: fake_person.first_name())
+    # фамилия случайным образом определится, но при повторном вызове будет то же значение:
+    # last_name: fake_person.last_name()
+    last_name: str = field(default_factory=lambda: fake_person.last_name())
+    # email: fake_person.email()
+
+
+# функция генерации имен относительно полученного значения в gender поле:
 def __post_init__(self):
     if self.first_name is ...:
         self.first_name = fake_person.first_name(
@@ -116,4 +122,8 @@ def __post_init__(self):
         )
 
 
-user = User(gender=Gender.Male)
+user_female = RandomName(gender=Gender.Female)
+print(user_female)
+
+user_male = RandomName(gender=Gender.Male)
+print(user_male)
