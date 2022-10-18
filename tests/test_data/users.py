@@ -111,8 +111,12 @@ class RandomName:
     # last_name: str = field(default_factory=lambda: fake_person.last_name())
     # email: fake_person.email()
 
-    # функция генерации имен относительно полученного значения в gender поле:
     def __post_init__(self):
+        '''
+        Генерация имен относительно полученного значения в gender поле:
+        :return: имена, адаптированные под gender значие
+        '''
+
         mimesis_like_gender = mimesis.enums.Gender(
             value=(
                 (
