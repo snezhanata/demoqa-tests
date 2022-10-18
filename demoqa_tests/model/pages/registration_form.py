@@ -16,6 +16,7 @@ from tests.test_data.users import Subject, Hobby
 
 class RegistrationForm:
     def __init__(self):
+        # сюда выносим либо вобще все элементы, либо только те, которые повторяются несколько раз
         self.state_selector = Dropdown(browser.element('#state'))
         self.city_selector = Dropdown(browser.element('#city'))
         self.birthday_selector = DatePicker(browser.element('#dateOfBirthInput'))
@@ -54,7 +55,7 @@ class RegistrationForm:
         self.birthday_selector.calendar(day, month, year)
         return self
 
-    def fill_subjects(self, values: Tuple[Subject]):
+    def fill_subjects(self, values: Tuple[Subject]):  # type hint
         for subject in values:
             browser.element('#subjectsInput').type(subject.value).press_enter()
         return self
@@ -86,6 +87,11 @@ class RegistrationForm:
     def select_state(self, value: str):
         self.state_selector.scroll_to_view()
         self.state_selector.select(value)
+        return self
+
+    def autocomplete_state(self, value: str):
+        self.state_selector.scroll_to_view()
+        self.state_selector.autocomplete(value)
         return self
 
     def select_city(self, value: str):

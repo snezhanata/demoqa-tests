@@ -69,6 +69,7 @@ def test_submit_student_registration_form():
             .select_picture(user.picture_file)
             .fill_address(user.current_address)
             .select_state(user.state)
+            # .autocomplete_state('Uttar')
             .select_city(user.city)
             .submit()
         )
