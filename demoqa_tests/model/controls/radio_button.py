@@ -2,7 +2,7 @@ import selene
 from selene import have
 from selene.support.shared import browser
 
-from tests.test_data.users import user, Gender
+from tests.test_data.users import student_1, Gender
 
 
 class RadioButton:

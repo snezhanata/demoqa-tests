@@ -44,7 +44,7 @@ class User:
     city: str
 
 
-user = User(
+student_1 = User(
     first_name='Nyan',
     gender=Gender.Female,
     last_name='Cat',
@@ -61,6 +61,27 @@ user = User(
     hobbies=(Hobby.Sports, Hobby.Music),
     picture_file='pic.jpg',
     current_address='https://www.youtube.com/watch?v=QH2-TGUlwu4',
+    state='Uttar Pradesh',
+    city='Agra',
+)
+
+student_2 = User(
+    first_name='Eren',
+    gender=Gender.Male,
+    last_name='Yeager',
+    email='eren.yeager@gmail.com',
+    mobile_number='0123401234',
+    birth_date=datetime.date(1993, 5, 19),
+    birth_day='19',
+    birth_month='May',
+    birth_year='1993',
+    subjects=(
+        Subject.History,
+        Subject.Maths,
+    ),
+    hobbies=(Hobby.Sports, Hobby.Music),
+    picture_file='pic_2.png',
+    current_address='Shiganshina',
     state='Uttar Pradesh',
     city='Agra',
 )

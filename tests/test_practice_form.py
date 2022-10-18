@@ -1,5 +1,3 @@
-import datetime
-
 import allure
 from allure_commons.types import Severity
 from selene.support.shared import browser
@@ -7,34 +5,14 @@ from selene.support.shared import browser
 from demoqa_tests.model import app
 from demoqa_tests.utils import attachments
 
-from tests.test_data.users import user, User, Gender, Subject, Hobby
+from tests.test_data import users
+
 
 # Steps Object
-
-eren = User(
-    first_name='Eren',
-    gender=Gender.Male,
-    last_name='Yeager',
-    email='eren.yeager@gmail.com',
-    mobile_number='0123401234',
-    birth_date=datetime.date(1993, 5, 19),
-    birth_day='19',
-    birth_month='May',
-    birth_year='1993',
-    subjects=(
-        Subject.History,
-        Subject.Maths,
-    ),
-    hobbies=(Hobby.Sports, Hobby.Music),
-    picture_file='pic_2.png',
-    current_address='Shiganshina',
-    state='Uttar Pradesh',
-    city='Agra',
-)
-
-
 def test_submit_student_registration_form_business_step():
-    app.registration_form.open().enrollment(eren).assert_enrollment(eren)
+    app.student_operations.open().enrollment(users.student_2).assert_enrollment(
+        users.student_2
+    )
 
 
 # Fluent Page Object
@@ -57,35 +35,46 @@ def test_submit_student_registration_form():
 
     with allure.step('Fill in the parameters'):
         (
-            app.registration_form.fill_name(user.first_name, user.last_name)
-            .fill_contacts(user.email, user.mobile_number)
-            .select_gender(user.gender.value)
-            .fill_date(user.birth_date)
+            app.registration_form.fill_name(
+                users.student_1.first_name, users.student_1.last_name
+            )
+            .fill_contacts(users.student_1.email, users.student_1.mobile_number)
+            .select_gender(users.student_1.gender.value)
+            .fill_date(users.student_1.birth_date)
             # .select_date(user.birth_day, user.birth_month, user.birth_year)
-            .fill_subjects(user.subjects)
+            .fill_subjects(users.student_1.subjects)
             # .add_subjects_by_autocomplete('#subjectsInput', from_='Hi', to='History')
             # .add_subjects_by_autocomplete('#subjectsInput', from_='Mat', to='Maths')
-            .select_hobbies(user.hobbies)
-            .select_picture(user.picture_file)
-            .fill_address(user.current_address)
-            .select_state(user.state)
+            .select_hobbies(users.student_1.hobbies)
+            .select_picture(users.student_1.picture_file)
+            .fill_address(users.student_1.current_address)
+            .select_state(users.student_1.state)
             # .autocomplete_state('Uttar')
-            .select_city(user.city)
+            .select_city(users.student_1.city)
             .submit()
         )
 
     with allure.step('Check the results of form submitting'):
         app.submission_form.should_have_table(
-            ('Student Name', f'{user.first_name} {user.last_name}'),
-            ('Student Email', user.email),
-            ('Gender', user.gender.value),
-            ('Mobile', user.mobile_number),
-            ('Date of Birth', f'{user.birth_day} {user.birth_month},{user.birth_year}'),
-            ('Subjects', ', '.join([subject.value for subject in user.subjects])),
-            ('Hobbies', ', '.join([hobby.name for hobby in user.hobbies])),
-            ('Picture', user.picture_file),
-            ('Address', user.current_address),
-            ('State and City', f'{user.state} {user.city}'),
+            (
+                'Student Name',
+                f'{users.student_1.first_name} {users.student_1.last_name}',
+            ),
+            ('Student Email', users.student_1.email),
+            ('Gender', users.student_1.gender.value),
+            ('Mobile', users.student_1.mobile_number),
+            (
+                'Date of Birth',
+                f'{users.student_1.birth_day} {users.student_1.birth_month},{users.student_1.birth_year}',
+            ),
+            (
+                'Subjects',
+                ', '.join([subject.value for subject in users.student_1.subjects]),
+            ),
+            ('Hobbies', ', '.join([hobby.name for hobby in users.student_1.hobbies])),
+            ('Picture', users.student_1.picture_file),
+            ('Address', users.student_1.current_address),
+            ('State and City', f'{users.student_1.state} {users.student_1.city}'),
         )
 
     with allure.step('Additional info'):
