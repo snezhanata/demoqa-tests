@@ -102,24 +102,25 @@ def format_view_date(value: datetime.date):
 @dataclass
 class RandomName:
     gender: Gender
-    # если хочешь рандомное значение каждый вызов:
-    first_name: str = field(default_factory=lambda: fake_person.first_name())
+    first_name: str = ...
+    last_name: str = ...
+
     # фамилия случайным образом определится, но при повторном вызове будет то же значение:
     # last_name: fake_person.last_name()
-    last_name: str = field(default_factory=lambda: fake_person.last_name())
+    # если хочешь рандомное значение каждый вызов:
+    # last_name: str = field(default_factory=lambda: fake_person.last_name())
     # email: fake_person.email()
 
-
-# функция генерации имен относительно полученного значения в gender поле:
-def __post_init__(self):
-    if self.first_name is ...:
-        self.first_name = fake_person.first_name(
-            gender=mimesis.enums.Gender(value=self.gender.value.lower())
-        )
-    if self.last_name is ...:
-        self.last_name = fake_person.last_name(
-            gender=mimesis.enums.Gender(value=self.gender.value.lower())
-        )
+    # функция генерации имен относительно полученного значения в gender поле:
+    def __post_init__(self):
+        if self.first_name is ...:
+            self.first_name = fake_person.first_name(
+                gender=mimesis.enums.Gender(value=self.gender.value.lower())
+            )
+        if self.last_name is ...:
+            self.last_name = fake_person.last_name(
+                gender=mimesis.enums.Gender(value=self.gender.value.lower())
+            )
 
 
 user_female = RandomName(gender=Gender.Female)
