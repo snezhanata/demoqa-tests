@@ -10,11 +10,27 @@ from tests.test_data import users
 
 # Steps Object
 def test_student_registration():
-    (
-        app.sign_up.open_registration_form()
-        .registered(users.student_2)
-        .should_be_registered(users.student_2)
+    allure.dynamic.tag('blocker')
+    allure.dynamic.severity(Severity.BLOCKER)
+    allure.dynamic.label('owner', 'Snezhana')
+    allure.dynamic.feature('Student Registration Form')
+    allure.dynamic.story(
+        'Check the results of submitting the "Student Registration Form"'
     )
+    allure.dynamic.link(
+        'https://demoqa.com/automation-practice-form',
+        name='Link to the "Student Registration Form"',
+    )
+
+    with allure.step('Check student registration operation'):
+        (
+            app.sign_up.open_registration_form()
+            .registered(users.student_2)
+            .should_be_registered(users.student_2)
+        )
+
+    with allure.step('Additional info'):
+        attachments.list_(browser)
 
 
 # Fluent Page Object
@@ -25,7 +41,7 @@ def test_submit_student_registration_form():
     allure.dynamic.label('owner', 'Snezhana')
     allure.dynamic.feature('Student Registration Form')
     allure.dynamic.story(
-        'Check the results of submitting  the "Student Registration Form"'
+        'Check the "Student Registration Form" opening, fill in data and results of submitting'
     )
     allure.dynamic.link(
         'https://demoqa.com/automation-practice-form',
