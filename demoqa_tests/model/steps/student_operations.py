@@ -11,12 +11,11 @@ class StudentOperations:
         self.registration_form = RegistrationForm()
         self.submission_form = SubmissionForm()
 
-    def open(self):
-        browser.open('/automation-practice-form')
-        google.ads_remove(amount=4, timeout=5)
+    def open_registration_form(self):
+        self.registration_form.open()
         return self
 
-    def enrollment(self, user: User):  # User = type hint
+    def registered(self, user: User):  # User = type hint
         (
             self.registration_form.fill_name(user.first_name, user.last_name)
             .fill_contacts(user.email, user.mobile_number)
@@ -35,7 +34,7 @@ class StudentOperations:
         )
         return self
 
-    def assert_enrollment(self, user):
+    def should_be_registered(self, user):
         self.submission_form.should_have_table(
             ('Student Name', f'{user.first_name} {user.last_name}'),
             ('Student Email', user.email),
