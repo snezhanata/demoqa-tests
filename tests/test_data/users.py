@@ -113,22 +113,17 @@ class RandomName:
 
     # функция генерации имен относительно полученного значения в gender поле:
     def __post_init__(self):
+        mimesis_like_gender = mimesis.enums.Gender(
+            value=(
+                (
+                    self.gender if self.gender is not Gender.Other else Gender.Male
+                ).value.lower()
+            )
+        )
         if self.first_name is ...:
-            self.first_name = fake_person.first_name(
-                gender=mimesis.enums.Gender(
-                    value=(
-                        (
-                            self.gender
-                            if self.gender is not Gender.Other
-                            else Gender.Male
-                        ).value.lower()
-                    )
-                )
-            )
+            self.first_name = fake_person.first_name(mimesis_like_gender)
         if self.last_name is ...:
-            self.last_name = fake_person.last_name(
-                gender=mimesis.enums.Gender(value=self.gender.value.lower())
-            )
+            self.last_name = fake_person.last_name(mimesis_like_gender)
 
 
 user_female = RandomName(gender=Gender.Female)
