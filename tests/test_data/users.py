@@ -140,10 +140,12 @@ print(user_male)
 user_male = RandomName(gender=Gender.Other)
 print(user_male)
 
+
 # @staticmethod
 # def random_with_required_fields():
-#     return User(gender=[Gender.Male, Gender.Female, Gender.Other][random.randint(0, 2)])
+#     return RandomName(gender=[Gender.Male, Gender.Female, Gender.Other][random.randint(0, 2)])
 # # в значении будет None у полей, нужно будет построить if в методах на registration page, если заполнено значение или нет
+
 # @staticmethod
 # def random_with_all_fields():
 #     return User(subjects=(Subject.History, Subject.Maths, Subject.Physics))
