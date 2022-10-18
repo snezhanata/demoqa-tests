@@ -120,7 +120,7 @@ class RandomName:
         mimesis_like_gender = mimesis.enums.Gender(
             value=(
                 (
-                    self.gender if self.gender is not Gender.Other else Gender.Male
+                    self.gender if (self.gender is not Gender.Other) else Gender.Male
                 ).value.lower()
             )
         )
@@ -134,4 +134,7 @@ user_female = RandomName(gender=Gender.Female)
 print(user_female)
 
 user_male = RandomName(gender=Gender.Male)
+print(user_male)
+
+user_male = RandomName(gender=Gender.Other)
 print(user_male)
