@@ -1,9 +1,15 @@
 import datetime
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
+import random
 from typing import Tuple
 
+import mimesis
+from mimesis import Person, enums
+
 from demoqa_tests import config
+
+fake_person = Person('en')
 
 
 class Subject(Enum):
@@ -35,7 +41,6 @@ class User:
     birth_day: str
     birth_month: str
     birth_year: str
-    # date_of_birth: str = '08 August,2000' # noqa
     subjects: Tuple
     hobbies: Tuple
     picture_file: str
@@ -44,7 +49,7 @@ class User:
     city: str
 
 
-user = User(
+student_1 = User(
     first_name='Nyan',
     gender=Gender.Female,
     last_name='Cat',
@@ -65,6 +70,27 @@ user = User(
     city='Agra',
 )
 
+student_2 = User(
+    first_name='Eren',
+    gender=Gender.Male,
+    last_name='Yeager',
+    email='eren.yeager@gmail.com',
+    mobile_number='0123401234',
+    birth_date=datetime.date(1993, 5, 19),
+    birth_day='19',
+    birth_month='May',
+    birth_year='1993',
+    subjects=(
+        Subject.History,
+        Subject.Maths,
+    ),
+    hobbies=(Hobby.Sports, Hobby.Music),
+    picture_file='pic_2.png',
+    current_address='Shiganshina',
+    state='Uttar Pradesh',
+    city='Agra',
+)
+
 
 def format_input_date(value: datetime.date):
     return value.strftime(config.datetime_input_format)
@@ -72,3 +98,54 @@ def format_input_date(value: datetime.date):
 
 def format_view_date(value: datetime.date):
     return value.strftime(config.datetime_view_format)
+
+
+@dataclass
+class RandomName:
+    gender: Gender
+    first_name: str = ...
+    last_name: str = ...
+
+    # фамилия случайным образом определится, но при повторном вызове будет то же значение:
+    # last_name: fake_person.last_name()
+    # если хочешь рандомное значение каждый вызов:
+    # last_name: str = field(default_factory=lambda: fake_person.last_name())
+    # email: fake_person.email()
+
+    def __post_init__(self):
+        '''
+        Генерация имен относительно полученного значения в gender поле:
+        :return: имена, адаптированные под gender значие
+        '''
+
+        mimesis_like_gender = mimesis.enums.Gender(
+            value=(
+                (
+                    self.gender if (self.gender is not Gender.Other) else Gender.Male
+                ).value.lower()
+            )
+        )
+        if self.first_name is ...:
+            self.first_name = fake_person.first_name(mimesis_like_gender)
+        if self.last_name is ...:
+            self.last_name = fake_person.last_name(mimesis_like_gender)
+
+
+user_female = RandomName(gender=Gender.Female)
+print(user_female)
+
+user_male = RandomName(gender=Gender.Male)
+print(user_male)
+
+user_male = RandomName(gender=Gender.Other)
+print(user_male)
+
+
+# @staticmethod
+# def random_with_required_fields():
+#     return RandomName(gender=[Gender.Male, Gender.Female, Gender.Other][random.randint(0, 2)])
+# # в значении будет None у полей, нужно будет построить if в методах на registration page, если заполнено значение или нет
+
+# @staticmethod
+# def random_with_all_fields():
+#     return User(subjects=(Subject.History, Subject.Maths, Subject.Physics))

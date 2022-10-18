@@ -3,19 +3,18 @@ from typing import Tuple
 from selene import have, command
 from selene.support.shared import browser
 
-from demoqa_tests.model.controls import radio_button, checkbox
 from demoqa_tests.model import google
 from demoqa_tests.model.controls.datepicker import DatePicker
 from demoqa_tests.model.controls.dropdown import Dropdown
 from demoqa_tests.model.controls.checkbox import Checkbox
 from demoqa_tests.model.controls.radio_button import RadioButton
-from demoqa_tests.model.pages.submission_form import SubmissionForm
 from demoqa_tests.utils import path
-from tests.test_data.users import Subject, Hobby
+from tests.test_data.users import Subject, Hobby, Gender
 
 
 class RegistrationForm:
     def __init__(self):
+        # сюда выносим либо вобще все элементы, либо только те, которые повторяются несколько раз
         self.state_selector = Dropdown(browser.element('#state'))
         self.city_selector = Dropdown(browser.element('#city'))
         self.birthday_selector = DatePicker(browser.element('#dateOfBirthInput'))
@@ -27,7 +26,7 @@ class RegistrationForm:
         google.ads_remove(amount=4, timeout=5)
         return self
 
-    def select_gender(self, value: str):
+    def select_gender(self, value: Gender):
         self.gender_selector.option(value)
         return self
 
@@ -54,7 +53,7 @@ class RegistrationForm:
         self.birthday_selector.calendar(day, month, year)
         return self
 
-    def fill_subjects(self, values: Tuple[Subject]):
+    def fill_subjects(self, values: Tuple[Subject]):  # type hint
         for subject in values:
             browser.element('#subjectsInput').type(subject.value).press_enter()
         return self
@@ -88,49 +87,15 @@ class RegistrationForm:
         self.state_selector.select(value)
         return self
 
+    def autocomplete_state(self, value: str):
+        self.state_selector.scroll_to_view()
+        self.state_selector.autocomplete(value)
+        return self
+
     def select_city(self, value: str):
         self.city_selector.select(value)
         return self
 
     def submit(self):
         browser.element('#submit').perform(command.js.click)
-        return self
-
-    def enrollment(self, user):
-        (
-            self.open()
-            .fill_name(user.first_name, user.last_name)
-            .fill_contacts(user.email, user.mobile_number)
-            .select_gender(user.gender.value)
-            .fill_date(user.birth_date)
-            # .select_date(user.birth_day, user.birth_month, user.birth_year)
-            .fill_subjects(user.subjects)
-            # .add_subjects_by_autocomplete('#subjectsInput', from_='Hi', to='History')
-            # .add_subjects_by_autocomplete('#subjectsInput', from_='Mat', to='Maths')
-            .select_hobbies(user.hobbies)
-            .select_picture(user.picture_file)
-            .fill_address(user.current_address)
-            .select_state(user.state)
-            .select_city(user.city)
-            .submit()
-        )
-        return self
-
-    def assert_enrollment(self, user):
-        submition_form = SubmissionForm()
-        submition_form.should_have_table(
-            ('Student Name', f'{user.first_name} {user.last_name}'),
-            ('Student Email', user.email),
-            ('Gender', user.gender.value),
-            ('Mobile', user.mobile_number),
-            (
-                'Date of Birth',
-                f'{user.birth_day} {user.birth_month},{user.birth_year}',
-            ),
-            ('Subjects', ', '.join([subject.value for subject in user.subjects])),
-            ('Hobbies', ', '.join([hobby.name for hobby in user.hobbies])),
-            ('Picture', user.picture_file),
-            ('Address', user.current_address),
-            ('State and City', f'{user.state} {user.city}'),
-        )
         return self
