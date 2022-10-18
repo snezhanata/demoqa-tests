@@ -1,1 +1,1 @@
-from . import student_operations
+from . import registration_steps

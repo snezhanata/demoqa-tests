@@ -11,7 +11,7 @@ from tests.test_data import users
 # Steps Object
 def test_student_registration():
     (
-        app.student_operations.open_registration_form()
+        app.sign_up.open_registration_form()
         .registered(users.student_2)
         .should_be_registered(users.student_2)
     )

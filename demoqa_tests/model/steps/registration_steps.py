@@ -6,7 +6,7 @@ from demoqa_tests.model.pages.submission_form import SubmissionForm
 from tests.test_data.users import User
 
 
-class StudentOperations:
+class RegistrationSteps:
     def __init__(self):
         self.registration_form = RegistrationForm()
         self.submission_form = SubmissionForm()
