@@ -115,7 +115,15 @@ class RandomName:
     def __post_init__(self):
         if self.first_name is ...:
             self.first_name = fake_person.first_name(
-                gender=mimesis.enums.Gender(value=self.gender.value.lower())
+                gender=mimesis.enums.Gender(
+                    value=(
+                        (
+                            self.gender
+                            if self.gender is not Gender.Other
+                            else Gender.Male
+                        ).value.lower()
+                    )
+                )
             )
         if self.last_name is ...:
             self.last_name = fake_person.last_name(
