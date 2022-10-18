@@ -9,7 +9,7 @@ from tests.test_data import users
 
 
 # Steps Object
-def test_submit_student_registration_form_business_step():
+def test_student_operations():
     app.student_operations.open().enrollment(users.student_2).assert_enrollment(
         users.student_2
     )
