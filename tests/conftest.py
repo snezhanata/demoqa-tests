@@ -10,7 +10,7 @@ browser_name = os.getenv('selene.browser_name', 'selenoid')
 
 
 def pytest_addoption(parser):
-    parser.addoption('--browser_version', default='99.0')
+    parser.addoption('--browser_version', default='106.0')
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -29,8 +29,8 @@ def browser_management(request):
 
     else:
         load_dotenv()
-        login = os.getenv('LOGIN')
-        password = os.getenv('PASSWORD')
+        # login = os.getenv('LOGIN')
+        # password = os.getenv('PASSWORD')
         options = Options()
         browser_version = request.config.getoption('--browser_version')
         selenoid_capabilities = {
@@ -40,7 +40,7 @@ def browser_management(request):
         }
         options.capabilities.update(selenoid_capabilities)
         driver = webdriver.Remote(
-            command_executor=f'https://{login}:{password}@selenoid.autotests.cloud/wd/hub',
+            command_executor='http://test:test-password@192.168.0.102:5555/wd/hub',
             options=options,
         )
         browser.config.driver = driver
