@@ -40,7 +40,7 @@ def browser_management(request):
         }
         options.capabilities.update(selenoid_capabilities)
         driver = webdriver.Remote(
-            command_executor='http://test:test-password@192.168.0.102:5555/wd/hub',
+            command_executor='http://test:test-password@192.168.0.102:4445/wd/hub',
             options=options,
         )
         browser.config.driver = driver
